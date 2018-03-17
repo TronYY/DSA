@@ -1,0 +1,76 @@
+package Midterm;
+import java.io.*;
+
+public class TestMyBigInt {
+
+	public static void main(String[] args) throws IOException {
+		
+		String ope=new String();
+		StringBuffer para1;
+		StringBuffer para2;
+		int operator;
+		
+		
+		do{
+			MyBigInt BI;/**/
+			System.out.println("1.加法	2.减法	3.乘法	4.除法");
+			System.out.println("请选择要进行的运算：");
+			BufferedReader input=new BufferedReader(new InputStreamReader(System.in));
+		
+			
+			ope=input.readLine();
+			operator=Integer.parseInt(ope);
+			
+			switch (operator){
+				case 1:
+					System.out.println("请输入加数：");
+					ope=input.readLine();
+					para1 = new StringBuffer(ope);
+					System.out.println("请输入加数：");
+					ope=input.readLine();
+					para2 = new StringBuffer(ope);
+					BI=new MyBigInt(para1,para2);
+					System.out.println("和:"+BI.getAns(BI.add(BI.getBigInt1(),BI.getBigInt2())));
+					break;
+				case 2:
+					System.out.println("请输入被减数：");
+					ope=input.readLine();
+					para1 = new StringBuffer(ope);
+					System.out.println("请输入减数：");
+					ope=input.readLine();
+					para2 = new StringBuffer(ope);
+					BI=new MyBigInt(para1,para2);
+					System.out.println("差:"+BI.getAns(BI.minus(BI.getBigInt1(),BI.getBigInt2())));
+					break;
+				
+				case 3:
+					System.out.println("请输入因数：");
+					ope=input.readLine();
+					para1 = new StringBuffer(ope);
+					System.out.println("请输入因数：");
+					ope=input.readLine();
+					para2 = new StringBuffer(ope);
+					BI=new MyBigInt(para1,para2);
+					System.out.println("积:"+BI.getAns(BI.multiply(BI.getBigInt1(),BI.getBigInt2())));
+					break;
+				case 4:
+					System.out.println("请输入被除数：");
+					ope=input.readLine();
+					para1 = new StringBuffer(ope);
+					System.out.println("请输入除数：");
+					ope=input.readLine();
+					para2 = new StringBuffer(ope);
+					BI=new MyBigInt(para1,para2);
+					BI.devide(BI.getBigInt1(),BI.getBigInt2());
+					System.out.println("商:"+BI.getAns(BI.getQuoBigInt()));
+					System.out.println("余数:"+BI.getAns(BI.getRemBigInt()));
+					break;
+					
+			}
+			System.out.println("是否继续进行计算Y/N:");
+			ope=input.readLine();
+		}while (ope.equals("Y"));
+	}
+	
+
+}

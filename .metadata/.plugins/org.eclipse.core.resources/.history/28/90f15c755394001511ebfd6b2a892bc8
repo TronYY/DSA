@@ -1,0 +1,35 @@
+package Chapter2;
+import java.io.*;
+import java.net.*;
+public class TCPServer {
+
+	public static void main(String[] args) throws Exception {
+		String clientSentence;
+		
+		int result;
+		ServerSocket welcomeSocket=new ServerSocket(4700);
+		
+		while (true){
+			Socket connectionSocket=welcomeSocket.accept();
+			
+			BufferedReader inFromClient=new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+			DataOutputStream outToClient=new DataOutputStream(connectionSocket.getOutputStream());
+			
+			clientSentence=inFromClient.readLine();
+			
+			
+		
+			
+			InfixToPostfix ITP=new InfixToPostfix();
+			ITP.toPostfix(clientSentence);
+			
+			
+			CalculatePostfixExpression CPE=new CalculatePostfixExpression();
+			result=CPE.calculate(ITP.getpostfixString());
+			
+			
+			outToClient.writeBytes(String.valueOf(result));
+		}
+	}
+
+}

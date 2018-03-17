@@ -1,0 +1,827 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0037)http://lovelace.iteye.com/blog/182772 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>java clone方法使用详解 - 浪人 - ITeye技术网站</title>
+    <meta name="description" content="http://tuzki.us  我们都是兔斯基     ----------------------------------------我是小小分割线--------------------------------     Java语言的一个优点就是取消了指针的概念�� ...">
+    <meta name="keywords" content="Java, C, C++, C#, 数据结构 java clone方法使用详解">
+    <link rel="shortcut icon" href="http://lovelace.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://lovelace.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://lovelace.iteye.com/rss" rel="alternate" title="浪人" type="application/rss+xml">
+    <link href="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/blue.css" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript" async="" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/ga.js"></script><script src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/application.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/shCoreCommon.js" type="text/javascript"></script>
+<script src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/hotkey.js" type="text/javascript"></script>
+  <script src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/code_favorites.js" type="text/javascript"></script>
+<script src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/weiboshare.js" type="text/javascript"></script>
+  <style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style></head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="http://lovelace.iteye.com/blog/182772#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="left: 368px; display: none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="http://lovelace.iteye.com/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://lovelace.iteye.com/login">登录</a>
+    <a href="http://lovelace.iteye.com/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://lovelace.iteye.com/">浪人</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://lovelace.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://lovelace.iteye.com/weibo">微博</a></li>
+            <li><a href="http://lovelace.iteye.com/album">相册</a></li>
+            <li><a href="http://lovelace.iteye.com/link">收藏</a></li>
+            <li><a href="http://lovelace.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://lovelace.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="http://lovelace.iteye.com/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="">
+              <input class="submit_search" type="submit" value="">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style="display:none">
+  <a href="http://lovelace.iteye.com/" class="p-author" target="_blank">lovelace</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/java clone方法使用详解 - 浪人 - ITeye技术网站.htm">java clone方法使用详解</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://lovelace.iteye.com/category/23595">Java</a></li> </ul>
+        <div class="news_tag"><a href="http://www.iteye.com/blogs/tag/Java">Java</a><a href="http://www.iteye.com/blogs/tag/C">C</a><a href="http://www.iteye.com/blogs/tag/C++">C++</a><a href="http://www.iteye.com/blogs/tag/C%23">C#</a><a href="http://www.iteye.com/blogs/tag/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a>&nbsp;</div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    <p><a href="http://tuzki.us/">http://tuzki.us</a>&nbsp; 我们都是兔斯基</p>
+<p>&nbsp;</p>
+<p>----------------------------------------我是小小分割线--------------------------------</p>
+<p>&nbsp;</p>
+<p>Java语言的一个优点就是取消了指针的概念，但也导致了许多程序员在编程中常常忽略了对象与引用的区别，特别是先学c、c++后学java的程序员。并且由于Java不能通过简单的赋值来解决对象复制的问题，在开发过程中，也常常要要应用clone（）方法来复制对象。比如函数参数类型是自定义的类时，此时便是引用传递而不是值传递。以下是一个小例子：</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=public%20class%20A%20%7B%0A%09public%20String%20name%3B%0A%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;A&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;String&nbsp;name;&nbsp;&nbsp;</span></span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="0" title="java clone方法使用详解" style="display: none;">public class A {
+	public String name;
+}</pre>
+<p>&nbsp;</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=public%20class%20testClone%20%7B%0A%09%0A%09public%20void%20changeA(A%20a)%7B%0A%09%09a.name%3D%22b%22%3B%0A%09%7D%0A%09public%20void%20changInt(int%20i)%7B%0A%09%09i%3Di*2%2B100%3B%0A%09%7D%0A%09%0A%09%2F**%0A%09%20*%20%40param%20args%0A%09%20*%2F%0A%09public%20static%20void%20main(String%5B%5D%20args)%20%7B%0A%09%09%2F%2F%20TODO%20Auto-generated%20method%20stub%0A%09%09testClone%20test%3Dnew%20testClone()%3B%0A%09%09A%20a%3Dnew%20A()%3B%0A%09%09a.name%3D%22a%22%3B%0A%09%09System.out.println(%22before%20change%20%3A%20a.name%3D%22%2Ba.name)%3B%0A%09%09test.changeA(a)%3B%0A%09%09System.out.println(%22after%20%20change%20%3A%20a.name%3D%22%2Ba.name)%3B%0A%09%09int%20i%3D1%3B%0A%09%09System.out.println(%22before%20change%20%3A%20i%3D%22%2Bi)%3B%0A%09%09test.changInt(i)%3B%0A%09%09System.out.println(%22after%20%20change%20%3A%20i%3D%22%2Bi)%3B%0A%09%7D%0A%0A%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;testClone&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;changeA(A&nbsp;a){&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.name=<span class="string">"b"</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;changInt(</span><span class="keyword">int</span><span>&nbsp;i){&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i=i*<span class="number">2</span><span>+</span><span class="number">100</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/**</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;args</span>&nbsp;</span></li><li><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;main(String[]&nbsp;args)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;TODO&nbsp;Auto-generated&nbsp;method&nbsp;stub</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;testClone&nbsp;test=<span class="keyword">new</span><span>&nbsp;testClone();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;a=<span class="keyword">new</span><span>&nbsp;A();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a.name=<span class="string">"a"</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="string">"before&nbsp;change&nbsp;:&nbsp;a.name="</span><span>+a.name);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test.changeA(a);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="string">"after&nbsp;&nbsp;change&nbsp;:&nbsp;a.name="</span><span>+a.name);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int</span><span>&nbsp;i=</span><span class="number">1</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="string">"before&nbsp;change&nbsp;:&nbsp;i="</span><span>+i);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test.changInt(i);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="string">"after&nbsp;&nbsp;change&nbsp;:&nbsp;i="</span><span>+i);&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="1" title="java clone方法使用详解" style="display: none;">public class testClone {
+	
+	public void changeA(A a){
+		a.name="b";
+	}
+	public void changInt(int i){
+		i=i*2+100;
+	}
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		testClone test=new testClone();
+		A a=new A();
+		a.name="a";
+		System.out.println("before change : a.name="+a.name);
+		test.changeA(a);
+		System.out.println("after  change : a.name="+a.name);
+		int i=1;
+		System.out.println("before change : i="+i);
+		test.changInt(i);
+		System.out.println("after  change : i="+i);
+	}
+
+}</pre>
+<p><br><br>此时输出的结果是：</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=before%20change%20%3A%20a.name%3Da%0Aafter%20%20change%20%3A%20a.name%3Db%0Abefore%20change%20%3A%20i%3D1%0Aafter%20%20change%20%3A%20i%3D1%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span>before&nbsp;change&nbsp;:&nbsp;a.name=a&nbsp;&nbsp;</span></span></li><li><span>after&nbsp;&nbsp;change&nbsp;:&nbsp;a.name=b&nbsp;&nbsp;</span></li><li><span>before&nbsp;change&nbsp;:&nbsp;i=<span class="number">1</span><span>&nbsp;&nbsp;</span></span></li><li><span>after&nbsp;&nbsp;change&nbsp;:&nbsp;i=<span class="number">1</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="2" title="java clone方法使用详解" style="display: none;">before change : a.name=a
+after  change : a.name=b
+before change : i=1
+after  change : i=1
+</pre>
+<p><br><br>从这个例子知道Java对对象和基本的数据类型的处理是不一样的。在Java中用对象的作为入口参数的传递则缺省为"引用传递"，也就是说仅仅传递了对象的一个"引用"，这个"引用"的概念同C语言中的指针引用是一样的。当函数体内部对输入变量改变时，实质上就是在对这个对象的直接操作。 <br>除了在函数传值的时候是"引用传递"，在任何用"＝"向对象变量赋值的时候都是"引用传递"，如：</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%09%09A%20a1%3Dnew%20A()%3B%0A%09%09A%20a2%3Dnew%20A()%3B%0A%09%09a1.name%3D%22a1%22%3B%0A%09%09a2%3Da1%3B%0A%09%09a2.name%3D%22a2%22%3B%0A%09%09System.out.println(%22a1.name%3D%22%2Ba1.name)%3B%0A%09%09System.out.println(%22a2.name%3D%22%2Ba2.name)%3B" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span>A&nbsp;a1=</span><span class="keyword">new</span><span>&nbsp;A();&nbsp;&nbsp;</span></span></li><li><span>A&nbsp;a2=<span class="keyword">new</span><span>&nbsp;A();&nbsp;&nbsp;</span></span></li><li><span>a1.name=<span class="string">"a1"</span><span>;&nbsp;&nbsp;</span></span></li><li><span>a2=a1;&nbsp;&nbsp;</span></li><li><span>a2.name=<span class="string">"a2"</span><span>;&nbsp;&nbsp;</span></span></li><li><span>System.out.println(<span class="string">"a1.name="</span><span>+a1.name);&nbsp;&nbsp;</span></span></li><li><span>System.out.println(<span class="string">"a2.name="</span><span>+a2.name);&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="3" title="java clone方法使用详解" style="display: none;">		A a1=new A();
+		A a2=new A();
+		a1.name="a1";
+		a2=a1;
+		a2.name="a2";
+		System.out.println("a1.name="+a1.name);
+		System.out.println("a2.name="+a2.name);</pre>
+<p><br><br>此时输出的结果是：</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=a1.name%3Da2%0Aa2.name%3Da2" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span>a1.name=a2&nbsp;&nbsp;</span></span></li><li><span>a2.name=a2&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="4" title="java clone方法使用详解" style="display: none;">a1.name=a2
+a2.name=a2</pre>
+<p><br><br>如果我们要用a2保存a1对象的数据，但又不希望a2对象数据被改变时不影响到a1。实现clone（）方法是其一种最简单，也是最高效的手段。 <br>下面我们来实现A的clone方法</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=public%20class%20A%20implements%20Cloneable%20%7B%0A%09public%20String%20name%3B%0A%0A%09public%20Object%20clone()%20%7B%0A%09%09A%20o%20%3D%20null%3B%0A%09%09try%20%7B%0A%09%09%09o%20%3D%20(A)%20super.clone()%3B%0A%09%09%7D%20catch%20(CloneNotSupportedException%20e)%20%7B%0A%09%09%09e.printStackTrace()%3B%0A%09%09%7D%0A%09%09return%20o%3B%0A%09%7D%0A%0A%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;A&nbsp;</span><span class="keyword">implements</span><span>&nbsp;Cloneable&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;String&nbsp;name;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;Object&nbsp;clone()&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;o&nbsp;=&nbsp;<span class="keyword">null</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o&nbsp;=&nbsp;(A)&nbsp;<span class="keyword">super</span><span>.clone();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(CloneNotSupportedException&nbsp;e)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;o;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="5" title="java clone方法使用详解" style="display: none;">public class A implements Cloneable {
+	public String name;
+
+	public Object clone() {
+		A o = null;
+		try {
+			o = (A) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return o;
+	}
+
+}</pre>
+<p><br>首先要实现Cloneable接口，然后在重载clone方法，最后在clone()方法中调用了super.clone()，这也意味着无论clone类的继承结构是什么样的，super.clone()直接或间接调用了java.lang.Object类的clone()方法。</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%09%09A%20a1%3Dnew%20A()%3B%0A%09%09A%20a2%3Dnew%20A()%3B%0A%09%09a1.name%3D%22a1%22%3B%0A%09%09a2%3Da1%3B%0A%09%09a2.name%3D%22a2%22%3B%0A%09%09System.out.println(%22a1.name%3D%22%2Ba1.name)%3B%0A%09%09System.out.println(%22a2.name%3D%22%2Ba2.name)%3B" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span>A&nbsp;a1=</span><span class="keyword">new</span><span>&nbsp;A();&nbsp;&nbsp;</span></span></li><li><span>A&nbsp;a2=<span class="keyword">new</span><span>&nbsp;A();&nbsp;&nbsp;</span></span></li><li><span>a1.name=<span class="string">"a1"</span><span>;&nbsp;&nbsp;</span></span></li><li><span>a2=a1;&nbsp;&nbsp;</span></li><li><span>a2.name=<span class="string">"a2"</span><span>;&nbsp;&nbsp;</span></span></li><li><span>System.out.println(<span class="string">"a1.name="</span><span>+a1.name);&nbsp;&nbsp;</span></span></li><li><span>System.out.println(<span class="string">"a2.name="</span><span>+a2.name);&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="6" title="java clone方法使用详解" style="display: none;">		A a1=new A();
+		A a2=new A();
+		a1.name="a1";
+		a2=a1;
+		a2.name="a2";
+		System.out.println("a1.name="+a1.name);
+		System.out.println("a2.name="+a2.name);</pre>
+<p><br><br>此时输出的结果是：</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=a1.name%3Da1%0Aa2.name%3Da2" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span>a1.name=a1&nbsp;&nbsp;</span></span></li><li><span>a2.name=a2&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="7" title="java clone方法使用详解" style="display: none;">a1.name=a1
+a2.name=a2</pre>
+<p><br><br>当Class A成员变量类型是java的基本类型时（外加String类型）,只要实现如上简单的clone（称影子clone）就可以。但是如果Class A成员变量是数组或复杂类型时，就必须实现深度clone。</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=public%20class%20A%20implements%20Cloneable%20%7B%0A%09public%20String%20name%5B%5D%3B%0A%09%0A%09public%20A()%7B%0A%09%09name%3Dnew%20String%5B2%5D%3B%0A%09%7D%0A%0A%09public%20Object%20clone()%20%7B%0A%09%09A%20o%20%3D%20null%3B%0A%09%09try%20%7B%0A%09%09%09o%20%3D%20(A)%20super.clone()%3B%0A%09%09%7D%20catch%20(CloneNotSupportedException%20e)%20%7B%0A%09%09%09e.printStackTrace()%3B%0A%09%09%7D%0A%09%09return%20o%3B%0A%09%7D%0A%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;A&nbsp;</span><span class="keyword">implements</span><span>&nbsp;Cloneable&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;String&nbsp;name[];&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;A(){&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name=<span class="keyword">new</span><span>&nbsp;String[</span><span class="number">2</span><span>];&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;Object&nbsp;clone()&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;o&nbsp;=&nbsp;<span class="keyword">null</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o&nbsp;=&nbsp;(A)&nbsp;<span class="keyword">super</span><span>.clone();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(CloneNotSupportedException&nbsp;e)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;o;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="8" title="java clone方法使用详解" style="display: none;">public class A implements Cloneable {
+	public String name[];
+	
+	public A(){
+		name=new String[2];
+	}
+
+	public Object clone() {
+		A o = null;
+		try {
+			o = (A) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return o;
+	}
+}</pre>
+<p><br>测试代码</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=A%20a1%3Dnew%20A()%3B%0AA%20a2%3Dnew%20A()%3B%0Aa1.name%5B0%5D%3D%22a%22%3B%0Aa1.name%5B1%5D%3D%221%22%3B%0Aa2%3D(A)a1.clone()%3B%0Aa2.name%5B0%5D%3D%22b%22%3B%0Aa2.name%5B1%5D%3D%221%22%3B%0ASystem.out.println(%22a1.name%3D%22%2Ba1.name)%3B%0ASystem.out.println(%22a1.name%3D%22%2Ba1.name%5B0%5D%2Ba1.name%5B1%5D)%3B%0ASystem.out.println(%22a2.name%3D%22%2Ba2.name)%3B%0ASystem.out.println(%22a2.name%3D%22%2Ba2.name%5B0%5D%2Ba2.name%5B1%5D)%3B" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span>A&nbsp;a1=</span><span class="keyword">new</span><span>&nbsp;A();&nbsp;&nbsp;</span></span></li><li><span>A&nbsp;a2=<span class="keyword">new</span><span>&nbsp;A();&nbsp;&nbsp;</span></span></li><li><span>a1.name[<span class="number">0</span><span>]=</span><span class="string">"a"</span><span>;&nbsp;&nbsp;</span></span></li><li><span>a1.name[<span class="number">1</span><span>]=</span><span class="string">"1"</span><span>;&nbsp;&nbsp;</span></span></li><li><span>a2=(A)a1.clone();&nbsp;&nbsp;</span></li><li><span>a2.name[<span class="number">0</span><span>]=</span><span class="string">"b"</span><span>;&nbsp;&nbsp;</span></span></li><li><span>a2.name[<span class="number">1</span><span>]=</span><span class="string">"1"</span><span>;&nbsp;&nbsp;</span></span></li><li><span>System.out.println(<span class="string">"a1.name="</span><span>+a1.name);&nbsp;&nbsp;</span></span></li><li><span>System.out.println(<span class="string">"a1.name="</span><span>+a1.name[</span><span class="number">0</span><span>]+a1.name[</span><span class="number">1</span><span>]);&nbsp;&nbsp;</span></span></li><li><span>System.out.println(<span class="string">"a2.name="</span><span>+a2.name);&nbsp;&nbsp;</span></span></li><li><span>System.out.println(<span class="string">"a2.name="</span><span>+a2.name[</span><span class="number">0</span><span>]+a2.name[</span><span class="number">1</span><span>]);&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="9" title="java clone方法使用详解" style="display: none;">A a1=new A();
+A a2=new A();
+a1.name[0]="a";
+a1.name[1]="1";
+a2=(A)a1.clone();
+a2.name[0]="b";
+a2.name[1]="1";
+System.out.println("a1.name="+a1.name);
+System.out.println("a1.name="+a1.name[0]+a1.name[1]);
+System.out.println("a2.name="+a2.name);
+System.out.println("a2.name="+a2.name[0]+a2.name[1]);</pre>
+<p><br>输出结果：</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=a1.name%3D%5BLjava.lang.String%3B%40757aef%0Aa1.name%3Db1%0Aa2.name%3D%5BLjava.lang.String%3B%40757aef%0Aa2.name%3Db1" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span>a1.name=[Ljava.lang.String;</span><span class="annotation">@757aef</span><span>&nbsp;&nbsp;</span></span></li><li><span>a1.name=b1&nbsp;&nbsp;</span></li><li><span>a2.name=[Ljava.lang.String;<span class="annotation">@757aef</span><span>&nbsp;&nbsp;</span></span></li><li><span>a2.name=b1&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="10" title="java clone方法使用详解" style="display: none;">a1.name=[Ljava.lang.String;@757aef
+a1.name=b1
+a2.name=[Ljava.lang.String;@757aef
+a2.name=b1</pre>
+<p><br>看到了吧，a1.name,a2.name的hash值都是@757aef,也就是说影子clone对name数组只是clone他们的地址！解决该办法是进行深度clone。</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=public%20Object%20clone()%20%7B%0A%09%09A%20o%20%3D%20null%3B%0A%09%09try%20%7B%0A%09%09%09o%20%3D%20(A)%20super.clone()%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20o.name%3D(String%5B%5D)name.clone()%3B%2F%2F%E5%85%B6%E5%AE%9E%E4%B9%9F%E5%BE%88%E7%AE%80%E5%8D%95%5E_%5E%0A%09%09%7D%20catch%20(CloneNotSupportedException%20e)%20%7B%0A%09%09%09e.printStackTrace()%3B%0A%09%09%7D%0A%09%09return%20o%3B%0A%09%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span class="keyword">public</span><span>&nbsp;Object&nbsp;clone()&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;o&nbsp;=&nbsp;<span class="keyword">null</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o&nbsp;=&nbsp;(A)&nbsp;<span class="keyword">super</span><span>.clone();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o.name=(String[])name.clone();<span class="comment">//其实也很简单^_^</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(CloneNotSupportedException&nbsp;e)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;o;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="11" title="java clone方法使用详解" style="display: none;">public Object clone() {
+		A o = null;
+		try {
+			o = (A) super.clone();
+            o.name=(String[])name.clone();//其实也很简单^_^
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return o;
+	}</pre>
+<p><br>此时输出结果是：</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=a1.name%3D%5BLjava.lang.String%3B%40757aef%0Aa1.name%3Da1%0Aa2.name%3D%5BLjava.lang.String%3B%40d9f9c3%0Aa2.name%3Db1" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span>a1.name=[Ljava.lang.String;</span><span class="annotation">@757aef</span><span>&nbsp;&nbsp;</span></span></li><li><span>a1.name=a1&nbsp;&nbsp;</span></li><li><span>a2.name=[Ljava.lang.String;<span class="annotation">@d9f9c3</span><span>&nbsp;&nbsp;</span></span></li><li><span>a2.name=b1&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="12" title="java clone方法使用详解" style="display: none;">a1.name=[Ljava.lang.String;@757aef
+a1.name=a1
+a2.name=[Ljava.lang.String;@d9f9c3
+a2.name=b1</pre>
+<p><br>需要注意的是Class A存在更为复杂的成员变量时，如Vector等存储对象地址的容器时，就必须clone彻底。</p>
+<div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=public%20class%20A%20implements%20Cloneable%20%7B%0A%09public%20String%20name%5B%5D%3B%0A%09public%20Vector%3CB%3E%20claB%3B%0A%09%0A%09public%20A()%7B%0A%09%09name%3Dnew%20String%5B2%5D%3B%0A%09%09claB%3Dnew%20Vector%3CB%3E()%3B%0A%09%7D%0A%0A%09public%20Object%20clone()%20%7B%0A%09%09A%20o%20%3D%20null%3B%0A%09%09try%20%7B%0A%09%09%09o%20%3D%20(A)%20super.clone()%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20o.name%3D%3D(String%5B%5D)name.clone()%3B%2F%2F%E6%B7%B1%E5%BA%A6clone%0A%20%20%20%20%20%20%20%20%20%20%20%20o.claB%3Dnew%20Vector%3CB%3E()%3B%2F%2F%E5%B0%86clone%E8%BF%9B%E8%A1%8C%E5%88%B0%E5%BA%95%0A%20%20%20%20%20%20%20%20%20%20%20%20for(int%20i%3D0%3Bi%3CclaB.size()%3Bi%2B%2B)%7B%0A%09%20%20%20%20%20%20%20%20%20%20%20%20B%20temp%3D(B)claB.get(i).clone()%3B%2F%2F%E5%BD%93%E7%84%B6Class%20B%E4%B9%9F%E8%A6%81%E5%AE%9E%E7%8E%B0%E7%9B%B8%E5%BA%94clone%E6%96%B9%E6%B3%95%0A%09%20%20%20%20%20%20%20%20%20%20%20%20o.claB.add(temp)%3B%0A%09%09%20%20%20%20%7D%0A%09%09%7D%20catch%20(CloneNotSupportedException%20e)%20%7B%0A%09%09%09e.printStackTrace()%3B%0A%09%09%7D%0A%09%09%09%09return%20o%3B%0A%09%7D%0A%7D" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;A&nbsp;</span><span class="keyword">implements</span><span>&nbsp;Cloneable&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;String&nbsp;name[];&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;Vector&lt;B&gt;&nbsp;claB;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;A(){&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name=<span class="keyword">new</span><span>&nbsp;String[</span><span class="number">2</span><span>];&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;claB=<span class="keyword">new</span><span>&nbsp;Vector&lt;B&gt;();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;Object&nbsp;clone()&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;o&nbsp;=&nbsp;<span class="keyword">null</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o&nbsp;=&nbsp;(A)&nbsp;<span class="keyword">super</span><span>.clone();&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o.name==(String[])name.clone();<span class="comment">//深度clone</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o.claB=<span class="keyword">new</span><span>&nbsp;Vector&lt;B&gt;();</span><span class="comment">//将clone进行到底</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>(</span><span class="keyword">int</span><span>&nbsp;i=</span><span class="number">0</span><span>;i&lt;claB.size();i++){&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B&nbsp;temp=(B)claB.get(i).clone();<span class="comment">//当然Class&nbsp;B也要实现相应clone方法</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o.claB.add(temp);&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">catch</span><span>&nbsp;(CloneNotSupportedException&nbsp;e)&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;o;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="java" codeable_id="182772" codeable_type="Blog" source_url="http://lovelace.iteye.com/blog/182772" pre_index="13" title="java clone方法使用详解" style="display: none;">public class A implements Cloneable {
+	public String name[];
+	public Vector&lt;B&gt; claB;
+	
+	public A(){
+		name=new String[2];
+		claB=new Vector&lt;B&gt;();
+	}
+
+	public Object clone() {
+		A o = null;
+		try {
+			o = (A) super.clone();
+            o.name==(String[])name.clone();//深度clone
+            o.claB=new Vector&lt;B&gt;();//将clone进行到底
+            for(int i=0;i&lt;claB.size();i++){
+	            B temp=(B)claB.get(i).clone();//当然Class B也要实现相应clone方法
+	            o.claB.add(temp);
+		    }
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+				return o;
+	}
+}</pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+  </div>
+
+  
+
+  
+  
+  <iframe src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/794.htm" scrolling="no" width="468" height="60" frameborder="0"></iframe>
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://lovelace.iteye.com/blog/230262" class="next" title="Could not load Tomcat server configuration">Could not load Tomcat server configurati ...</a>
+      |
+      <a href="http://lovelace.iteye.com/blog/179061" class="pre" title="split()函数出错">split()函数出错</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2008-04-15 09:09</li>
+      <li>浏览 60453</li>
+      <li><a href="http://lovelace.iteye.com/blog/182772#comments">评论(20)</a></li>
+       <li>论坛回复 / <a href="http://lovelace.iteye.com/topic/182772">浏览</a> (7 / 13000)</li> 
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/language">编程语言</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/182772" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    <div id="bc2371537">
+  <div class="comment_title">
+    20 楼
+    <a href="http://jenercy.iteye.com/" target="_blank" title="Jenercy">Jenercy</a>
+    2015-05-05&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">楼主笔误了。<div class="quote_title">引用</div><div class="quote_div">首先要实现Cloneable接口，然后在重载clone方法，最后在clone()方法中调用了super.clone()，这也意味着无论clone类的继承结构是什么样的，super.clone()直接或间接调用了java.lang.Object类的clone()方法。<br>Java代码&nbsp; 收藏代码<br>A a1=new A();&nbsp; <br>A a2=new A();&nbsp; <br>a1.name="a1";&nbsp; <br>a2=a1;&nbsp; <br>a2.name="a2";&nbsp; <br>System.out.println("a1.name="+a1.name);&nbsp; <br>System.out.println("a2.name="+a2.name);&nbsp; <br><br><br>此时输出的结果是：<br>Java代码&nbsp; 收藏代码<br>a1.name=a1&nbsp; <br>a2.name=a2&nbsp; <br></div><br>这里的a2=a1应该要写成：a2 = a1.clone()<br>另外，A a2=new A()这么写不好，应该写成A a2 = null;</div>
+</div>
+
+<div id="bc2364643">
+  <div class="comment_title">
+    19 楼
+    <a href="http://jshen.iteye.com/" target="_blank" title="Jshen">Jshen</a>
+    2014-12-12&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">别浪费时间</div>
+</div>
+
+<div id="bc2363914">
+  <div class="comment_title">
+    18 楼
+    <a href="http://dreajay.iteye.com/" target="_blank" title="dreajay">dreajay</a>
+    2014-11-30&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content"><img src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_question.gif"> 误人子弟</div>
+</div>
+
+<div id="bc2360013">
+  <div class="comment_title">
+    17 楼
+    <a href="http://dlwyk.iteye.com/" target="_blank" title="风飞叶扬">风飞叶扬</a>
+    2014-10-08&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">看代码之前先看看1L的评论吧</div>
+</div>
+
+<div id="bc2356729">
+  <div class="comment_title">
+    16 楼
+    <a href="http://ljh-uncle.iteye.com/" target="_blank" title="ljh_uncle">ljh_uncle</a>
+    2014-08-21&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">脑残。。。</div>
+</div>
+
+<div id="bc2324120">
+  <div class="comment_title">
+    15 楼
+    <a href="http://daijunjian.iteye.com/" target="_blank" title="daijunjian">daijunjian</a>
+    2013-08-31&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">a2=a1; 这块代码有些问题，应该是是a2 = (A)al.clone;</div>
+</div>
+
+<div id="bc2297033">
+  <div class="comment_title">
+    14 楼
+    <a href="http://201211131343.iteye.com/" target="_blank" title="zjuttsw">zjuttsw</a>
+    2013-01-10&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">误人子弟啊。还好先看了评论</div>
+</div>
+
+<div id="bc2281264">
+  <div class="comment_title">
+    13 楼
+    <a href="http://wuaner.iteye.com/" target="_blank" title="Wuaner">Wuaner</a>
+    2012-09-11&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">楼主 先搞明白Java里没有引用传递，再说Clone的问题。</div>
+</div>
+
+<div id="bc2275211">
+  <div class="comment_title">
+    12 楼
+    <a href="http://wzb56.iteye.com/" target="_blank" title="wzb56">wzb56</a>
+    2012-08-09&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content"><div class="quote_title">jersey109 写道</div><div class="quote_div">他这个代码有问题,大家不要浪费时间了.</div><br></div>
+</div>
+
+<div id="bc2252137">
+  <div class="comment_title">
+    11 楼
+    <a href="http://7-iroy.iteye.com/" target="_blank" title="7_iroy">7_iroy</a>
+    2012-04-10&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content"><img src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_redface.gif"> </div>
+</div>
+
+<div id="bc2213394">
+  <div class="comment_title">
+    10 楼
+    <a href="http://jersey109.iteye.com/" target="_blank" title="jersey109">jersey109</a>
+    2011-08-28&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">他这个代码有问题,大家不要浪费时间了.</div>
+</div>
+
+<div id="bc2206046">
+  <div class="comment_title">
+    9 楼
+    <a href="http://zcwfeng.iteye.com/" target="_blank" title="zcwfeng">zcwfeng</a>
+    2011-07-21&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content"><br>public class A implements Cloneable {<br>	/**<br>	 * clone<br>	 */<br>	public String name;<br><br>	public Object clone() {<br>		A o = null;<br>		try {<br>			o = (A) super.clone();<br>		} catch (CloneNotSupportedException e) {<br>			e.printStackTrace();<br>		}<br>		return o;<br>	}<br><br>}<br>public class TestCloner {<br>	public static void main(String[] args) {<br>		cn.nusof.clone.cloner.A a1 = new A();<br>		cn.nusof.clone.cloner.A a2 = new A();<br>		a1.name = "a1";<br>		a1 = a2;<br>		a2.name = "a2";<br>		System.out.println("a1.name=" + a1.name);<br>		System.out.println("a2.name=" + a2.name);<br>	}<br>}<br><br>结果和你的根本不一样，骗人了不是<br>a1.name=a2<br>a2.name=a2</div>
+</div>
+
+<div id="bc2205105">
+  <div class="comment_title">
+    8 楼
+    <a href="http://jingtao416.iteye.com/" target="_blank" title="jingtao416">jingtao416</a>
+    2011-07-17&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">public class A implements Cloneable 后
+<br>A a1=new A();&nbsp;&nbsp; 
+<br>A a2=new A();&nbsp;&nbsp; 
+<br>a1.name="a1";&nbsp;&nbsp; 
+<br>a2=a1;&nbsp;&nbsp; 
+<br>a2.name="a2";&nbsp;&nbsp; 
+<br>System.out.println("a1.name="+a1.name);&nbsp;&nbsp; 
+<br>System.out.println("a2.name="+a2.name);&nbsp; 
+<br>结果没改变啊</div>
+</div>
+
+<div id="bc740232">
+  <div class="comment_title">
+    7 楼
+    <a href="http://8040.iteye.com/" target="_blank" title="8040">8040</a>
+    2008-11-17&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">序列化与反序列化　深度克隆<br><div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%20%20%20%0A%20private%20static%20Object%20cloneObject(Object%20obj)%20throws%20Exception%7B%0A%20%20%20%20%20%20%20%20ByteArrayOutputStream%20%20byteOut%20%3D%20new%20ByteArrayOutputStream()%3B%20%20%0A%20%20%20%20%20%20%20%20ObjectOutputStream%20out%20%3D%20new%20ObjectOutputStream(byteOut)%3B%20%20%0A%20%20%20%20%20%20%20%20out.writeObject(obj)%3B%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20ByteArrayInputStream%20byteIn%20%3D%20new%20ByteArrayInputStream(byteOut.toByteArray())%3B%20%20%0A%20%20%20%20%20%20%20%20ObjectInputStream%20in%20%3Dnew%20ObjectInputStream(byteIn)%3B%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20in.readObject()%3B%0A%7D%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li><span><span class="keyword">private</span><span>&nbsp;</span><span class="keyword">static</span><span>&nbsp;Object&nbsp;cloneObject(Object&nbsp;obj)&nbsp;</span><span class="keyword">throws</span><span>&nbsp;Exception{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteArrayOutputStream&nbsp;&nbsp;byteOut&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;ByteArrayOutputStream();&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ObjectOutputStream&nbsp;out&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;ObjectOutputStream(byteOut);&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out.writeObject(obj);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteArrayInputStream&nbsp;byteIn&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;ByteArrayInputStream(byteOut.toByteArray());&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ObjectInputStream&nbsp;in&nbsp;=<span class="keyword">new</span><span>&nbsp;ObjectInputStream(byteIn);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;in.readObject();&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="java" codeable_id="740232" codeable_type="BlogComment" source_url="http://lovelace.iteye.com/blog/182772#bc740232" pre_index="0" title="java clone方法使用详解" style="display: none;">   
+ private static Object cloneObject(Object obj) throws Exception{
+        ByteArrayOutputStream  byteOut = new ByteArrayOutputStream();  
+        ObjectOutputStream out = new ObjectOutputStream(byteOut);  
+        out.writeObject(obj);         
+        ByteArrayInputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());  
+        ObjectInputStream in =new ObjectInputStream(byteIn);        
+        return in.readObject();
+}
+</pre><br><br></div>
+</div>
+
+<div id="bc661253">
+  <div class="comment_title">
+    6 楼
+    <a href="http://lovelace.iteye.com/" target="_blank" title="lovelace">lovelace</a>
+    2008-09-10&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content"><div class="quote_title">引用</div><div class="quote_div">windshjw 昨天 
+<br>Your deep clone coding is also not correct. 
+<br>The correct coding should be: 
+<br>
+<br>public class A implements Cloneable { 
+<br>public String name; 
+<br>public String[] group = new String[2]; 
+<br>
+<br>
+<br>public Object clone() { 
+<br>A o = null; 
+<br>try { 
+<br>o = (A) super.clone(); 
+<br>o.group = (String[])group.clone(); 
+<br>} catch (CloneNotSupportedException e) { 
+<br>e.printStackTrace(); 
+<br>} 
+<br>return o; 
+<br>} 
+<br>
+<br>}
+<br></div>
+<br>just you said ,it's wrong.
+<br>thank you for kind reply</div>
+</div>
+
+<div id="bc661251">
+  <div class="comment_title">
+    5 楼
+    <a href="http://lovelace.iteye.com/" target="_blank" title="lovelace">lovelace</a>
+    2008-09-10&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content"><div class="quote_title">引用</div><div class="quote_div">windshjw 昨天 
+<br>A a1=new A(); 
+<br>A a2=new A(); 
+<br>a1.name="a1"; 
+<br>a2=a1; 
+<br>a2.name="a2"; 
+<br>System.out.println("a1.name="+a1.name); 
+<br>System.out.println("a2.name="+a2.name); 
+<br>result: 
+<br>a1.name=a2 
+<br>a2.name=a2 
+<br>
+<br>Obviously, It is not correct. Pls confirm whether you copy error coding.The sentence "a2=(A)a1.clone();" should be used, instead "a2=a1;"</div>
+<br>i don't think so. 
+<br>My example is in the case:
+<br>除了在函数传值的时候是"引用传递"，在任何用"＝"向对象变量赋值的时候都是"引用传递"
+<br>not in clone</div>
+</div>
+
+<div id="bc661218">
+  <div class="comment_title">
+    4 楼
+    <a href="http://taupo.iteye.com/" target="_blank" title="taupo">taupo</a>
+    2008-09-09&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">干嘛用英语？？？？？？好累啊，看了一般</div>
+</div>
+
+<div id="bc661200">
+  <div class="comment_title">
+    3 楼
+    <a href="http://thatsmyiteye.iteye.com/" target="_blank" title="niwtsew">niwtsew</a>
+    2008-09-09&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">Why Clone<br>Suppose you have an object ‘a’ of class ‘A’. Sometimes you may need another new object ‘b’. It also belongs to class ‘A’ and has the same data with object ‘a’. But if you do some modification on b, it has no effect to the value of ‘a’. We call this process which produced new object ‘b’ as clone object ‘a’. The commonest time that you need to clone an object is when it is a parameter or return value of one of your public methods. If it is a parameter that you save somewhere, then you don't want the caller to be able to modify it later. So you save a copy of the object. Likewise, if you are returning an object that is part of your class's internal state, you need to return a copy instead so that callers can't accidentally or deliberately change that internal state.<br><br>Conventions of clone<br>1. x.clone() !=&nbsp; x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // x.clone() will return a new object<br>2. x.clone().equals(x)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // this is the meaning of ‘copy’<br>3. x.clone().getClass() == x.getClass()<br>4. The object returned by clone method should be independent of the object (which is&nbsp; <br>&nbsp;&nbsp;&nbsp; being cloned).<br><br>These are not absolute requirements but are general intends of clone method which is also recommended in Java Documents.<br><br>How to write clone method<br>By convention, the approach of writing clone method is:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Implements Cloneable interface<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This approach ensures your clone method can directly or indirectly call Object.clone(). Otherwise, calling Object.clone() will throws CloneNotSupportedException. Why we need to call Object.clone() in our clone method? Please see approach 2.2.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Override the clone method<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.1&nbsp;&nbsp;&nbsp;&nbsp; Make the clone method to public method<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Please be noted that the clone method type of Object class is: <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; protected Object clone()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throws CloneNotSupportedException<br>In order to support other class can use our clone method, we should define it as public method.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.2&nbsp;&nbsp;&nbsp;&nbsp; Call super.clone() to produce the new object<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; By convention, the object returned by clone method should be obtained by calling super.clone (this means it’s better to produce the new object by super.clone() than directly use “new” operator). If a class and all of its superclasses (except Object) obey this convention, it will be the case that x.clone().getClass() == x.getClass().<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Key point: why we should use super.clone() to produce the new object instead of directly use “new” operator?<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; First of all, if all classes obey this convention, our clone method will directly or indirectly call Object.clone method. This method is a native method, it will be more efficient than directly “new” an object.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Secondly, Object.clone method can recognize the class type which called the clone method using RTTI mechanism. And it will return the new object which has the correct class type. For example:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; class A implements Cloneable<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; class B extends A implements Cloneable { <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public Object clone() throws CloneNotSupportedException{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B b = null;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b = (B) super.clone();&nbsp; // It seems that super.clone() is&nbsp;&nbsp; <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //A.clone(), so it will return an<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //object of Class A. This is incorrect.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //If the clone method of class A calls<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //super.clone method too, it will<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //return a new object belongs to<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //class B. Thus, we can cast it to<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //class B. This is the benefit of<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Object.clone().<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return b;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Now, let’s consider another case, if we write clone method of class A like this:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; class A {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public Object clone() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A a = null;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a = new A();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Then do some copy data operation.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return a;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>When B.clone() calls super.clone(),unfortunately we can only get the object whose class is A. And we can’t cast the new object to class B since B is a subclass of A.<br><br>That’s why it’s strongly recommended that clone method of all classes obey the convention that obtained the new object by calling super.clone().<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.3&nbsp;&nbsp;&nbsp;&nbsp; Clone members<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; There are two cases: If the member supports clone, it’s better to call the clone method of the member to return a copy object of this member. If the member doesn’t support clone, you should create a new object which is the copy of the member. After this approach, it will be ensured that x.clone.equals(x) and x.clone() is independent with x.<br><br>Examples<br>/**<br> * class B support clone<br> * @author xzhu2<br> *<br> */<br>class B implements Cloneable {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private int intMember;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public B(int i) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intMember = i;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void setIntMember(int i) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intMember = i;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public Object clone()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throws CloneNotSupportedException {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B clonedObject = null;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Firstly, call super.clone to return new object<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clonedObject = (B)super.clone();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Secondly, clone member here<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clonedObject.setIntMember(intMember);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // The end, return new object<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return clonedObject;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>}<br><br>/**<br> * class C doesn't support clone<br> * @author xzhu2<br> *<br> */<br>class C {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private int intMember;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public C(int i) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intMember = i;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void setIntMember(int i) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intMember = i;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public int getIntMember() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return intMember;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>}<br><br>class A implements Cloneable {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private int intMember = 0;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private String stringMember = "";<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private B supportCloneMember = null;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private C notSupportCloneMember = null;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void setIntMember(int i) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intMember = i;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void setStringMember(String s) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stringMember = s;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void setB(B b) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; supportCloneMember = b;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void setC(C c) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; notSupportCloneMember = c;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public Object clone()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throws CloneNotSupportedException {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A clonedObject = null;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Firstly, call super.clone to return new object<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clonedObject = (A)super.clone();<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Secondly, clone members here<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // For basic type member, directly set it to clonedObject&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Because basic type parameter passes value. Modify<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // clonedObject.intMember can not effect the intMember<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // of itself.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clonedObject.setIntMember(intMember);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // For immutable member, directly set it to clonedObject.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Becasue we can not change the value of immutable<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // variable once it was setted.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clonedObject.setStringMember(stringMember);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // For member which support clone, we just clone it and<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // set the return object to the member of new object.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B clonedB = (B)supportCloneMember.clone();<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clonedObject.setB(clonedB);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // For member which do not support clone, we need to create<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // new object.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C clonedC = new C(notSupportCloneMember.getIntMember());<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clonedObject.setC(clonedC);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // The end, return new object<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return clonedObject;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>} </div>
+</div>
+
+<div id="bc658608">
+  <div class="comment_title">
+    2 楼
+    <a href="http://windshjw.iteye.com/" target="_blank" title="windshjw">windshjw</a>
+    2008-09-08&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">Your deep clone coding is also not correct.
+<br>The correct coding should be:
+<br>
+<br>public class A implements Cloneable {
+<br>	public String name;
+<br>	public String[] group = new String[2];
+<br>	
+<br>
+<br>	public Object clone() {
+<br>		A o = null;
+<br>		try {
+<br>			o = (A) super.clone();
+<br>			o.group = (String[])group.clone();
+<br>		} catch (CloneNotSupportedException e) {
+<br>			e.printStackTrace();
+<br>		}
+<br>		return o;
+<br>	}
+<br>
+<br>}</div>
+</div>
+
+<div id="bc658558">
+  <div class="comment_title">
+    1 楼
+    <a href="http://windshjw.iteye.com/" target="_blank" title="windshjw">windshjw</a>
+    2008-09-08&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">A a1=new A();&nbsp;&nbsp; 
+<br>A a2=new A();&nbsp;&nbsp; 
+<br>a1.name="a1";&nbsp;&nbsp; 
+<br>a2=a1;&nbsp;&nbsp; 
+<br>a2.name="a2";&nbsp;&nbsp; 
+<br>System.out.println("a1.name="+a1.name);&nbsp;&nbsp; 
+<br>System.out.println("a2.name="+a2.name);&nbsp; 
+<br>result:
+<br>a1.name=a2
+<br>a2.name=a2
+<br>
+<br>Obviously, It is not correct. Pls confirm whether you copy error coding.The sentence "a2=(A)a1.clone();" should be used, instead "a2=a1;" </div>
+</div>
+
+
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="http://lovelace.iteye.com/login" style="background-color:white;"> <img src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/login_icon.png" style="vertical-align:middle; margin-right: 10px;"></a><a href="http://lovelace.iteye.com/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 182772;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'java clone方法使用详解');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'java clone方法使用详解');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://lovelace.iteye.com/"><img alt="lovelace的博客" class="logo" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/d67dcb1f-763f-4399-a16d-282d34b08ae0.jpg" title="lovelace的博客: 浪人" width=""></a></div>
+  <div id="blog_owner_name">lovelace</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 87127 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/icon_minigender_1.gif" title="男"></li>
+              <li>来自: 未知的世界</li>
+              <li><img src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/offline.gif"></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://lovelace.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://riverlet-l.iteye.com/" target="_blank"><img alt="riverlet.l的博客" class="logo" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/6d9af9dc-ff22-3340-8cc1-a783ebf75fdc-thumb.jpg" title="riverlet.l的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://riverlet-l.iteye.com/" target="_blank" title="riverlet.l">riverlet.l</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://zyadvanced.iteye.com/" target="_blank"><img alt="zyadvanced的博客" class="logo" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/user-logo-thumb.gif" title="zyadvanced的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://zyadvanced.iteye.com/" target="_blank" title="zyadvanced">zyadvanced</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://546936636-qq-com.iteye.com/" target="_blank"><img alt="楚青蓝的博客" class="logo" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/404af465-cd5c-3473-8af2-a5590ed7e001-thumb.jpg" title="楚青蓝的博客: 冬晴" width="48px"></a></div>
+                <div class="left"><a href="http://546936636-qq-com.iteye.com/" target="_blank" title="楚青蓝">楚青蓝</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://dylinshi126.iteye.com/" target="_blank"><img alt="dylinshi126的博客" class="logo" src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/user-logo-thumb.gif" title="dylinshi126的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://dylinshi126.iteye.com/" target="_blank" title="dylinshi126">dylinshi126</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://lovelace.iteye.com/">全部博客 (14)</a></li>
+                
+                  <li><a href="http://lovelace.iteye.com/category/23593">Linux (4)</a></li>
+                
+                  <li><a href="http://lovelace.iteye.com/category/23594">C/C++ (1)</a></li>
+                
+                  <li><a href="http://lovelace.iteye.com/category/23595">Java (4)</a></li>
+                
+                  <li><a href="http://lovelace.iteye.com/category/38582">工作 (1)</a></li>
+                
+                  <li><a href="http://lovelace.iteye.com/category/39403">web (1)</a></li>
+                
+                  <li><a href="http://lovelace.iteye.com/category/39982">游戏 (0)</a></li>
+                
+                  <li><a href="http://lovelace.iteye.com/category/138051">文摘 (4)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://lovelace.iteye.com/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="http://lovelace.iteye.com/blog/post">我的论坛</a> (15)
+                </li>
+                <li><a href="http://lovelace.iteye.com/blog/answered_problems">我的问答</a> (0)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://lovelace.iteye.com/blog/monthblog/2011-01">2011-01</a> (1)</li>
+                
+                  <li><a href="http://lovelace.iteye.com/blog/monthblog/2010-12">2010-12</a> (3)</li>
+                
+                  <li><a href="http://lovelace.iteye.com/blog/monthblog/2008-08">2008-08</a> (2)</li>
+                
+                <li><a href="http://lovelace.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://jenercy.iteye.com/" target="_blank" title="Jenercy">Jenercy</a>： 
+                  楼主笔误了。&lt;div class="quote ...<br>
+                  <a href="http://lovelace.iteye.com/blog/182772#bc2371537">java clone方法使用详解</a>
+                </li>
+                
+                <li>
+                  <a href="http://jshen.iteye.com/" target="_blank" title="Jshen">Jshen</a>： 
+                  别浪费时间<br>
+                  <a href="http://lovelace.iteye.com/blog/182772#bc2364643">java clone方法使用详解</a>
+                </li>
+                
+                <li>
+                  <a href="http://dreajay.iteye.com/" target="_blank" title="dreajay">dreajay</a>： 
+                   误人子弟<br>
+                  <a href="http://lovelace.iteye.com/blog/182772#bc2363914">java clone方法使用详解</a>
+                </li>
+                
+                <li>
+                  <a href="http://dlwyk.iteye.com/" target="_blank" title="风飞叶扬">风飞叶扬</a>： 
+                  看代码之前先看看1L的评论吧<br>
+                  <a href="http://lovelace.iteye.com/blog/182772#bc2360013">java clone方法使用详解</a>
+                </li>
+                
+                <li>
+                  <a href="http://ljh-uncle.iteye.com/" target="_blank" title="ljh_uncle">ljh_uncle</a>： 
+                  脑残。。。<br>
+                  <a href="http://lovelace.iteye.com/blog/182772#bc2356729">java clone方法使用详解</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2015 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script><img src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/saved_resource" width="0" height="0">
+
+<script src="./java clone方法使用详解 - 浪人 - ITeye技术网站_files/tracking.js" type="text/javascript"></script>
+
+    
+    
+  
+
+</body></html>

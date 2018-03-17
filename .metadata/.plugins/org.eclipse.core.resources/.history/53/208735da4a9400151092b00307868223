@@ -1,0 +1,33 @@
+package Chapter2;
+import java.io.*;
+import java.net.*;
+public class TCPClient {
+
+	public static void main(String[] args) throws Exception{
+		String inputInfix;
+		String postfix;
+		String result;
+		BufferedReader inFromUser=new BufferedReader(new InputStreamReader(System.in));
+		Socket  clientSocket=new Socket("10.81.60.124",6789);
+		
+		DataOutputStream outToServer=new DataOutputStream(clientSocket.getOutputStream());
+		BufferedReader inFromServer=new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		
+		System.out.println("请输入中缀表达式：");
+		inputInfix=inFromUser.readLine();
+		outToServer.writeBytes(inputInfix+'\n');
+		
+		
+		
+		result=inFromServer.readLine();
+		
+		
+		
+		System.out.println("From Server 计算结果为："+result);
+		clientSocket.close();
+
+		
+
+	}
+
+}

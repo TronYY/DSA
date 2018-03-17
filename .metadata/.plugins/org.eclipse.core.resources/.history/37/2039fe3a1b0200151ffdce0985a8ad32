@@ -1,0 +1,311 @@
+import java.util.Arrays;
+
+
+public class MyBigInt {
+	protected static final int MAX_INT=1000000000;//MAX_INT为每个数组单元中能存的最大数
+	protected BigNumStruct bigInt1,bigInt2;//为两个参数
+	protected BigNumStruct quoBigInt,remBigInt;//由于除法有两个返回值：商，余数，故除法方法不能为函数方法，将两个结果设为全局变量
+	
+	public MyBigInt(StringBuffer para1){
+		bigInt1=new BigNumStruct(para1);
+	}
+	public MyBigInt(StringBuffer para1,StringBuffer para2){
+		bigInt1=new BigNumStruct(para1);
+		bigInt2=new BigNumStruct(para2);
+	}
+	
+	public BigNumStruct getBigInt1(){
+		return bigInt1;
+	}
+	public BigNumStruct getBigInt2(){
+		return bigInt2;
+	}
+	public BigNumStruct getQuoBigInt(){
+		return quoBigInt;
+	}
+	public BigNumStruct getRemBigInt(){
+		return remBigInt;
+	}
+	
+	
+	
+	
+	//比较两个无符号大整数的大小
+	//bigInt1>bigInt2 返回1；bigInt1<bigInt2 返回-1；bigInt1=bigInt2 返回0；
+	public byte compare(BigNumStruct bigInt1,BigNumStruct bigInt2){
+		if (bigInt1.getArrayLen()>bigInt2.getArrayLen()) return 1;
+		if (bigInt1.getArrayLen()<bigInt2.getArrayLen()) return -1;
+		for (int i=bigInt1.getArrayLen()-1; i>=0; i--){
+			if (bigInt1.getArray(i)>bigInt2.getArray(i)) return 1;
+			if (bigInt1.getArray(i)<bigInt2.getArray(i)) return -1;
+		}
+		return 0;
+	}
+	
+	//加法分为符号相同的加法；符号不同的加法
+	public BigNumStruct add(BigNumStruct bigInt1,BigNumStruct bigInt2) {
+		BigNumStruct ansBigInt=new BigNumStruct();
+		
+		//如果bigInt1<bigInt2,则交换(引用的交换，时间复杂度仅为O(1)),
+		//保证无符号位bigInt1>bigInt2,可以减少代码的书写量，作用在后面会介绍
+		Byte ansCompare;
+		ansCompare=compare(bigInt1,bigInt2);
+		if (ansCompare<0) {BigNumStruct bigIntTemp = bigInt1;bigInt1=bigInt2;bigInt2=bigIntTemp;}
+		
+		//如果其中一数为0，则结果等于另一数，返回
+		if (bigInt2.equals("0")){
+			ansBigInt=bigInt1.clone();
+			//ansBigInt.setCloneFlag((byte)(1));
+			return ansBigInt;
+		}
+		
+		
+		//符号相同的加法,如  a+b，(-a)+(-b),  (a≥0，b≥0)；两数的相同长度进行相加，较大数的剩余长度直接放入结果里
+		if (bigInt1.getSign()==bigInt2.getSign()){
+			
+			//存储结果的数据结构
+			ansBigInt=new BigNumStruct(bigInt1.getArrayLen()+1);
+			ansBigInt.setSign(bigInt1.getSign());
+			
+			//由于已经保证了无符号位bigInt1>bigInt2；先进行长度较短的bigInt2一段长度的相加
+			int carry=0,tempSum=0,i;//carry记录进位，tempSum为每一个数组单元的临时和，i为指向数组的下标
+			for(i=0;i<bigInt2.getArrayLen();i++){
+				tempSum=bigInt1.getArray(i)+bigInt2.getArray(i)+carry;
+				ansBigInt.setArray(i,tempSum % MAX_INT);
+				carry=tempSum /MAX_INT;
+			}
+			//处理bigInt1剩余长度的计算
+			for (;i<bigInt1.getArrayLen();i++){
+				tempSum=bigInt1.getArray(i)+carry;
+				ansBigInt.setArray(i,tempSum % MAX_INT);
+				carry=tempSum /MAX_INT;
+			}
+			if (carry!=0){
+				ansBigInt.setArray(i,carry);
+				i++;
+			}
+			//记录实际数组长度
+			ansBigInt.setArrayLen(i);
+			return ansBigInt;
+		}
+		
+		//符号不同的加法,如 a+(-b), (-a)+b, (a>0，b>0)
+		else{
+			//符号不同的两数的加法，亦可以说是减法；
+			//由于不知道哪个加数大，做完减法可能会出现高位是负数的问题；为了减少对可能结果的分类讨论，我们已经将两个加数的无符号位进行比较，大的作为被减数，小的作为减数，这样做完减法不会出现高位为负数的问题；
+			
+			
+			
+			
+			//两者相等，则结果为0，直接返回
+			if (ansCompare==0){
+				ansBigInt=new BigNumStruct(1);
+				return ansBigInt;
+			}
+			
+			//存储结果的数据结构
+			ansBigInt=new BigNumStruct(bigInt1.getArrayLen());
+			ansBigInt.setSign(bigInt1.getSign());//结果的符号一定与被减数的符号相同
+			
+			//先进行bigInt2一段长度的相减
+			int borrow=0,tempResult=0,i;//borrow记录借位，tempResult为每一个数组单元的临时差，i为指向数组的下标
+			for(i=0;i<bigInt2.getArrayLen();i++){
+				tempResult=bigInt1.getArray(i)-bigInt2.getArray(i)-borrow;
+				if (tempResult<0) {
+					borrow=1;//借位
+					tempResult+=MAX_INT;
+				}
+				else borrow=0;
+				ansBigInt.setArray(i, tempResult);
+			}
+			//处理bigInt1剩余长度的计算
+			for (;i<bigInt1.getArrayLen();i++){
+				tempResult=bigInt1.getArray(i)-borrow;
+				if (tempResult<0) {
+					borrow=1;//借位
+					tempResult+=MAX_INT;
+				}
+				else borrow=0;
+				ansBigInt.setArray(i, tempResult);
+			}
+			
+			this.changArrayLen(ansBigInt);
+			return ansBigInt;			
+		}
+	}
+	
+	//减法，只需改动减数的符号，再按照加法进行
+	public BigNumStruct minus(BigNumStruct bigInt1,BigNumStruct bigInt2){
+		
+		bigInt2.setSign((byte) -bigInt2.getSign());
+		return(this.add(bigInt1,bigInt2));
+	}
+	
+	//乘法，如同笔算乘法；
+	//两重循环，bigInt1[i]与bigInt2[j]的结果累加在ansBigInt[i+j]中
+	public BigNumStruct multiply(BigNumStruct bigInt1,BigNumStruct bigInt2){
+		BigNumStruct ansBigInt=new BigNumStruct();
+		
+		ansBigInt=new BigNumStruct(bigInt1.getArrayLen()+bigInt2.getArrayLen());//积的长度最大为两个因数的长度和
+		
+		//有一个为0，则结果为0
+		if (bigInt1.equals("0")){
+			ansBigInt=bigInt1.clone();
+			//ansBigInt.setCloneFlag((byte)(1));
+			return ansBigInt;	
+		}
+		else if (bigInt2.equals("0")){
+			ansBigInt=bigInt2.clone();
+			//ansBigInt.setCloneFlag((byte)(1));
+			return ansBigInt;	
+		}
+		
+		ansBigInt.setSign((byte) (bigInt1.getSign()*bigInt2.getSign()));//结果的符号；两个byte型相乘为结果为int，需强制转换
+		
+		//两数相乘+进位+已有积 ，这个结果是否需要long型临时变量？考虑极端情况：两数相乘+进位+已有积=(10^9-1)*(10^9-1)+(10^9-1)+(10^9-1)=10^18-1>Integer.MAX_VALUE,∴需要
+		long carry=0,tempResult=0;
+		int i,j;//i,j为两个因数的数组的下标
+		for (i=0;i<bigInt1.getArrayLen();i++){
+			carry=0;
+			for (j=0;j<bigInt2.getArrayLen();j++){
+				tempResult=(long)(bigInt1.getArray(i))*(long)(bigInt2.getArray(j))+carry+(long)(ansBigInt.getArray(i+j));//两数相乘+进位+已有积,必须强制转换
+				carry=tempResult /MAX_INT;
+				ansBigInt.setArray(i+j,(int) (tempResult % MAX_INT));			
+			}
+			if (carry!=0)
+				ansBigInt.setArray(i+j,(int) (carry));
+		}
+		
+		this.changArrayLen(ansBigInt);
+		return ansBigInt;	
+	}
+	
+	
+	
+	
+	
+	
+	
+	//除法
+	public void devide(BigNumStruct bigInt1,BigNumStruct bigInt2) throws ArithmeticException{
+		
+		
+		if (bigInt2.equals("0")) throw new ArithmeticException("除数为0，请严谨一点好么？");
+		StringBuffer ze=new StringBuffer("0");
+		BigNumStruct zero=new BigNumStruct(ze);//BigNumStruct 的零；
+		
+		//被除数为0，则商为0，余数等于除数
+		if (bigInt1.equals("0")){
+			
+			quoBigInt=zero.clone();
+			remBigInt=bigInt2.clone();
+			//remBigInt.setCloneFlag((byte)(1));
+			return;
+		}
+		
+		//除数为±1，商等于被除数，余数为0；
+		if (bigInt2.equals("1")){
+			
+			quoBigInt=bigInt1.clone();
+			quoBigInt.setSign((byte) (bigInt1.getSign()*bigInt2.getSign()));
+			remBigInt=zero.clone();
+			return;
+		}
+		
+		
+		quoBigInt=new BigNumStruct(bigInt1.getArrayLen()-bigInt2.getArrayLen()+1);//商的长度
+		quoBigInt.setSign((byte) (bigInt1.getSign()*bigInt2.getSign()));//两数同号，商为正，否则为负
+		remBigInt=new BigNumStruct(bigInt2.getArrayLen());//余数的长度总≤除数
+		remBigInt.setSign((byte) (bigInt1.getSign()));//余数的符号和被除数相同
+		
+		//二分法找出商
+		//由于余数和商的符号已经确定，剩下的除法为无符号运算
+		bigInt1.setSign((byte) 1);
+		bigInt2.setSign((byte) 1);
+		
+		StringBuffer oneS=new StringBuffer("1");
+		BigNumStruct one=new BigNumStruct(oneS);
+		BigNumStruct low=one.clone();//下界为1
+		BigNumStruct high=bigInt1.clone();//上界为被除数
+		BigNumStruct mid=new BigNumStruct();
+		BigNumStruct tempBigInt1=new BigNumStruct(bigInt1.getArrayLen());//用于与被除数比较
+		
+		
+		do{
+			mid=half(low,high).clone();//mid为此时求出的商
+			tempBigInt1=multiply(mid,bigInt2).clone();
+		
+			int ansCompare=compare(tempBigInt1,bigInt1);
+			if (ansCompare==0){
+				quoBigInt.array=mid.getArray().clone();/**/
+				
+				remBigInt=zero.clone();
+				return;
+			}
+			else if (ansCompare<0)
+				low=this.add(mid,one.clone());
+			else 
+				high=this.minus(mid,one.clone());	
+		}while (compare(low,mid)<0);
+		
+		tempBigInt1=multiply(mid,bigInt2);//mid为经过二分法，此时最接近商的数
+		//试得商正合适
+		if (compare(tempBigInt1,bigInt1)<=0){
+			quoBigInt=mid.clone();
+			remBigInt=minus(bigInt1,tempBigInt1.clone());
+		}
+		//试得的商过大，需减一
+		else{
+			quoBigInt=minus(mid,one.clone());
+			remBigInt=minus(bigInt1,minus(tempBigInt1,bigInt2.clone()));//‘过大的临时被除数’-除数=真实商*除数，
+		}	
+		
+		this.changArrayLen(quoBigInt);
+		this.changArrayLen(remBigInt);
+	}
+	
+	//求中值
+	public BigNumStruct half(BigNumStruct a,BigNumStruct b){
+		BigNumStruct temp=add(a,b);
+		int i=temp.getArrayLen()-1,t=0;
+		for (;i>0;i--){
+			t=temp.getArray(i);
+			temp.setArray(i, t/2);
+			if (t%2==1) temp.setArray(i-1, temp.getArray(i-1)+MAX_INT);
+		}
+		temp.setArray(0,temp.getArray(0)/2);
+		
+		//实际长度
+		this.changArrayLen(temp);
+		return temp;	
+	}
+	
+	//求出大数的数组的实际长度
+	public void changArrayLen(BigNumStruct ans){
+		int i;
+		i=ans.getArrayLen()-1;
+		while(ans.getArray(i)==0 && i>0) i--;
+		ans.setArrayLen(i+1);
+	}
+	
+	public String getAns(BigNumStruct ansBigInt){
+		return ansBigInt.arrayToString();
+	}
+			
+		
+		
+		
+}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+

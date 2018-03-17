@@ -1,0 +1,11 @@
+/* AUTOMATICALLY GENERATED ON Tue Apr 16 17:20:59 EDT 2002*/
+/* DO NOT EDIT */
+
+grant {
+  permission java.security.AllPermission;
+  permission java.io.FilePermission "<<ALL FILES>>", "read,write";
+ permission java.io.FilePermission "D:/Course/StudentDemo_Applet/WebContent/img", "read";
+ permission java.io.FilePermission "D:\\Course\\StudentDemo_Applet\\WebContent\\img-", "read";
+
+};
+

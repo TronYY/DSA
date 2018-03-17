@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+org.eclipse.debug.core.USE_STEP_FILTERS=true
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="para1"/>\r\n<expression enabled\="true" text\="ansBigInt"/>\r\n<expression enabled\="true" text\="high"/>\r\n<expression enabled\="true" text\="fx"/>\r\n<expression enabled\="true" text\="ansSLink"/>\r\n<expression enabled\="true" text\="this"/>\r\n<expression enabled\="true" text\="quoSLink"/>\r\n<expression enabled\="true" text\="quoSLink"/>\r\n<expression enabled\="true" text\="remSLink"/>\r\n</watchExpressions>\r\n

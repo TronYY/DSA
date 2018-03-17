@@ -1,0 +1,653 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0066)http://www.cnblogs.com/PegasusWang/archive/2013/03/23/2977610.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./c++高精度模板 - PegasusWang - 博客园_files/analytics.js"></script>
+
+<title>c++高精度模板 - PegasusWang - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./c++高精度模板 - PegasusWang - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./c++高精度模板 - PegasusWang - 博客园_files/bundle-arrow.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/PegasusWang/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/PegasusWang/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/PegasusWang/wlwmanifest.xml">
+<script type="text/javascript" src="./c++高精度模板 - PegasusWang - 博客园_files/encoder.js"></script><script async="" type="text/javascript" src="./c++高精度模板 - PegasusWang - 博客园_files/gpt.js"></script><script src="./c++高精度模板 - PegasusWang - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'PegasusWang', cb_enable_mathjax=false;</script>
+<script src="./c++高精度模板 - PegasusWang - 博客园_files/blog-common.js" type="text/javascript"></script>
+<style type="text/css">
+.c_ad_block,[id^="div-gpt-ad-"],#ibanner {display:none!important;display:none}</style>
+<script async="" type="text/javascript" src="./c++高精度模板 - PegasusWang - 博客园_files/pubads_impl_61.js"></script></head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/PegasusWang/">PegasusWang(个人博客：http://ningning.today  )</a><br>
+		新博客http://blog.csdn.net/wangpegasus/article/
+本博客停止更新。
+	</div>
+</div>
+
+</div>
+<div id="mylinks">
+<!--done-->
+<a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/PegasusWang/">首页</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_ContactLink" accesskey="9" class="menu" rel="nofollow" href="http://space.cnblogs.com/msg/send/PegasusWang">联系</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/PegasusWang/rss">订阅</a><a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/PegasusWang/rss"><img src="./c++高精度模板 - PegasusWang - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a>
+</div>
+<div id="mytopmenu">
+	
+		
+<div class="blogStats">随笔 - 95&nbsp;
+文章 - 17&nbsp;评论 - 7&nbsp;trackbacks - 0
+</div>
+	
+</div>
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="日历">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2015/04/01&#39;);return false;">&lt;</a></td><td align="center">2015年5月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2015/06/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalTodayDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalWeekendDay" align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script><br>
+			
+<!--done-->
+<div class="newsItem">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/PegasusWang/">PegasusWang</a><br>园龄：<a href="http://home.cnblogs.com/u/PegasusWang/" title="入园时间：2012-08-04">2年9个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/PegasusWang/followers/">6</a><br>关注：<a href="http://home.cnblogs.com/u/PegasusWang/followees/">28</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;d61933db-17de-e111-aa3f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/PegasusWang/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/PegasusWang/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/PegasusWang/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/PegasusWang/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/PegasusWang/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/PegasusWang/tag/dfs/">dfs</a>(7)</li><li><a href="http://www.cnblogs.com/PegasusWang/tag/stl/">stl</a>(6)</li><li><a href="http://www.cnblogs.com/PegasusWang/tag/java/">java</a>(4)</li><li><a href="http://www.cnblogs.com/PegasusWang/tag/ural/">ural</a>(4)</li><li><a href="http://www.cnblogs.com/PegasusWang/tag/priority_queue/">priority_queue</a>(3)</li><li><a href="http://www.cnblogs.com/PegasusWang/tag/ACM/">ACM</a>(3)</li><li><a href="http://www.cnblogs.com/PegasusWang/tag/hdu/">hdu</a>(3)</li><li><a href="http://www.cnblogs.com/PegasusWang/tag/%E9%80%92%E6%8E%A8/">递推</a>(3)</li><li><a href="http://www.cnblogs.com/PegasusWang/tag/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/">组合数学</a>(3)</li><li><a href="http://www.cnblogs.com/PegasusWang/tag/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">单调队列</a>(2)</li><li><a href="http://www.cnblogs.com/PegasusWang/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<!--done-->
+
+		<h1 class="catListTitle">随笔分类</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/480266.html">Android(2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/470064.html">bjfu(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/447051.html">c++(15)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/447050.html">c语言(11)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/447721.html">hdu(20)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/480265.html">java(2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/447459.html">Linux(3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/447049.html">ural （timus）(13)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_8" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/447458.html">开发工具(14)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_9" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/447002.html">数据结构(6)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_10" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/447422.html">数论(2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_11" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/447048.html">算法(18)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_12" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/448025.html">随想，生活(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_13" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/447008.html">组合数学(3)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">随笔档案</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/PegasusWang/archive/2013/06.html">2013年6月 (6)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/PegasusWang/archive/2013/05.html">2013年5月 (31)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_2" class="listitem" href="http://www.cnblogs.com/PegasusWang/archive/2013/04.html">2013年4月 (27)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_3" class="listitem" href="http://www.cnblogs.com/PegasusWang/archive/2013/03.html">2013年3月 (16)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_4" class="listitem" href="http://www.cnblogs.com/PegasusWang/archive/2013/01.html">2013年1月 (15)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">文章分类</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_0" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/459567.html">ACM(3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_1" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/448028.html">c/c++(5)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_2" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/460614.html">开发工具(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_3" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/448029.html">数据结构(2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_4" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/448027.html">数学</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_5" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/447047.html">算法(5)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_6" class="listitem" href="http://www.cnblogs.com/PegasusWang/category/448030.html">文章(1)</a></li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/PegasusWang/archive/2013/04/06/3002511.html#3143865">1. Re:图的dfs与bfs（深搜广搜）c++实现</a></li>
+    <li class="recent_comment_body">用map 来储存list会好点，用vector每个顶点都要出现。</li>
+    <li class="recent_comment_author">--iWayne</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/PegasusWang/archive/2013/04/06/3002511.html">1. 图的dfs与bfs（深搜广搜）c++实现(2644)</a></li><li><a href="http://www.cnblogs.com/PegasusWang/archive/2013/03/09/2951972.html">2. vi查找和替换(1562)</a></li><li><a href="http://www.cnblogs.com/PegasusWang/archive/2013/03/13/2958150.html">3. hdu 1061 Rightmost Digit（快速幂取余）(1457)</a></li><li><a href="http://www.cnblogs.com/PegasusWang/archive/2013/05/20/3088404.html">4. 一些与算法有关的网站(1441)</a></li><li><a href="./c++高精度模板 - PegasusWang - 博客园_files/c++高精度模板 - PegasusWang - 博客园.htm">5. c++高精度模板(1420)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/PegasusWang/archive/2013/01/21/2870597.html">1. 鸽巢原理(The Pigeonhole Principle)（抽屉原理）(4)</a></li><li><a href="http://www.cnblogs.com/PegasusWang/archive/2013/03/17/2965189.html">2. 求圆周率π一万位程序分析(1)</a></li><li><a href="http://www.cnblogs.com/PegasusWang/archive/2013/05/03/3057169.html">3. VC6.0编译器不符合标准的一些情况（解决一些编译错误）(1)</a></li><li><a href="http://www.cnblogs.com/PegasusWang/archive/2013/04/06/3002511.html">4. 图的dfs与bfs（深搜广搜）c++实现(1)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/PegasusWang/archive/2013/01/21/2870597.html">1. 鸽巢原理(The Pigeonhole Principle)（抽屉原理）(1)</a></li><li><a href="http://www.cnblogs.com/PegasusWang/archive/2013/04/20/3031819.html">2. 并查集入门(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script></div>		
+	
+</div>
+<div id="centercontent">
+	
+
+<!--done-->
+<div class="post">
+	<div class="postTitle">
+		<h1><a id="cb_post_title_url" class="postTitle2" href="./c++高精度模板 - PegasusWang - 博客园_files/c++高精度模板 - PegasusWang - 博客园.htm">c++高精度模板</a></h1>
+	</div>
+	<div id="cnblogs_post_body"><div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./c++高精度模板 - PegasusWang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;">  1</span> #include&lt;iostream&gt; 
+<span style="color: #008080;">  2</span> #include&lt;<span style="color: #0000ff;">string</span>&gt; 
+<span style="color: #008080;">  3</span> #include&lt;iomanip&gt; 
+<span style="color: #008080;">  4</span> #include&lt;algorithm&gt; 
+<span style="color: #008080;">  5</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std; 
+</span><span style="color: #008080;">  6</span> 
+<span style="color: #008080;">  7</span> <span style="color: #0000ff;">#define</span> MAXN 9999
+<span style="color: #008080;">  8</span> <span style="color: #0000ff;">#define</span> MAXSIZE 10
+<span style="color: #008080;">  9</span> <span style="color: #0000ff;">#define</span> DLEN 4
+<span style="color: #008080;"> 10</span> 
+<span style="color: #008080;"> 11</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> BigNum
+</span><span style="color: #008080;"> 12</span> <span style="color: #000000;">{ 
+</span><span style="color: #008080;"> 13</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">: 
+</span><span style="color: #008080;"> 14</span>     <span style="color: #0000ff;">int</span> a[<span style="color: #800080;">500</span>];    <span style="color: #008000;">//</span><span style="color: #008000;">可以控制大数的位数 </span>
+<span style="color: #008080;"> 15</span>     <span style="color: #0000ff;">int</span> len;       <span style="color: #008000;">//</span><span style="color: #008000;">大数长度</span>
+<span style="color: #008080;"> 16</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">: 
+</span><span style="color: #008080;"> 17</span>     BigNum(){ len = <span style="color: #800080;">1</span>;memset(a,<span style="color: #800080;">0</span>,<span style="color: #0000ff;">sizeof</span>(a)); }   <span style="color: #008000;">//</span><span style="color: #008000;">构造函数</span>
+<span style="color: #008080;"> 18</span>     BigNum(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span>);       <span style="color: #008000;">//</span><span style="color: #008000;">将一个int类型的变量转化为大数</span>
+<span style="color: #008080;"> 19</span>     BigNum(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">char</span>*);     <span style="color: #008000;">//</span><span style="color: #008000;">将一个字符串类型的变量转化为大数</span>
+<span style="color: #008080;"> 20</span>     BigNum(<span style="color: #0000ff;">const</span> BigNum &amp;);  <span style="color: #008000;">//</span><span style="color: #008000;">拷贝构造函数</span>
+<span style="color: #008080;"> 21</span>     BigNum &amp;<span style="color: #0000ff;">operator</span>=(<span style="color: #0000ff;">const</span> BigNum &amp;);   <span style="color: #008000;">//</span><span style="color: #008000;">重载赋值运算符，大数之间进行赋值运算</span>
+<span style="color: #008080;"> 22</span> 
+<span style="color: #008080;"> 23</span>     friend istream&amp; <span style="color: #0000ff;">operator</span>&gt;&gt;(istream&amp;,  BigNum&amp;);   <span style="color: #008000;">//</span><span style="color: #008000;">重载输入运算符</span>
+<span style="color: #008080;"> 24</span>     friend ostream&amp; <span style="color: #0000ff;">operator</span>&lt;&lt;(ostream&amp;,  BigNum&amp;);   <span style="color: #008000;">//</span><span style="color: #008000;">重载输出运算符</span>
+<span style="color: #008080;"> 25</span> 
+<span style="color: #008080;"> 26</span>     BigNum <span style="color: #0000ff;">operator</span>+(<span style="color: #0000ff;">const</span> BigNum &amp;) <span style="color: #0000ff;">const</span>;   <span style="color: #008000;">//</span><span style="color: #008000;">重载加法运算符，两个大数之间的相加运算 </span>
+<span style="color: #008080;"> 27</span>     BigNum <span style="color: #0000ff;">operator</span>-(<span style="color: #0000ff;">const</span> BigNum &amp;) <span style="color: #0000ff;">const</span>;   <span style="color: #008000;">//</span><span style="color: #008000;">重载减法运算符，两个大数之间的相减运算 </span>
+<span style="color: #008080;"> 28</span>     BigNum <span style="color: #0000ff;">operator</span>*(<span style="color: #0000ff;">const</span> BigNum &amp;) <span style="color: #0000ff;">const</span>;   <span style="color: #008000;">//</span><span style="color: #008000;">重载乘法运算符，两个大数之间的相乘运算 </span>
+<span style="color: #008080;"> 29</span>     BigNum <span style="color: #0000ff;">operator</span>/(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span>   &amp;) <span style="color: #0000ff;">const</span>;    <span style="color: #008000;">//</span><span style="color: #008000;">重载除法运算符，大数对一个整数进行相除运算</span>
+<span style="color: #008080;"> 30</span> 
+<span style="color: #008080;"> 31</span>     BigNum <span style="color: #0000ff;">operator</span>^(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span>  &amp;) <span style="color: #0000ff;">const</span>;    <span style="color: #008000;">//</span><span style="color: #008000;">大数的n次方运算</span>
+<span style="color: #008080;"> 32</span>     <span style="color: #0000ff;">int</span>    <span style="color: #0000ff;">operator</span>%(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span>  &amp;) <span style="color: #0000ff;">const</span>;    <span style="color: #008000;">//</span><span style="color: #008000;">大数对一个int类型的变量进行取模运算    </span>
+<span style="color: #008080;"> 33</span>     <span style="color: #0000ff;">bool</span>   <span style="color: #0000ff;">operator</span>&gt;(<span style="color: #0000ff;">const</span> BigNum &amp; T)<span style="color: #0000ff;">const</span>;   <span style="color: #008000;">//</span><span style="color: #008000;">大数和另一个大数的大小比较</span>
+<span style="color: #008080;"> 34</span>     <span style="color: #0000ff;">bool</span>   <span style="color: #0000ff;">operator</span>&gt;(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> &amp; t)<span style="color: #0000ff;">const</span>;      <span style="color: #008000;">//</span><span style="color: #008000;">大数和一个int类型的变量的大小比较</span>
+<span style="color: #008080;"> 35</span> 
+<span style="color: #008080;"> 36</span>     <span style="color: #0000ff;">void</span> print();       <span style="color: #008000;">//</span><span style="color: #008000;">输出大数</span>
+<span style="color: #008080;"> 37</span> <span style="color: #000000;">}; 
+</span><span style="color: #008080;"> 38</span> BigNum::BigNum(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> b)     <span style="color: #008000;">//</span><span style="color: #008000;">将一个int类型的变量转化为大数</span>
+<span style="color: #008080;"> 39</span> <span style="color: #000000;">{ 
+</span><span style="color: #008080;"> 40</span>     <span style="color: #0000ff;">int</span> c,d =<span style="color: #000000;"> b;
+</span><span style="color: #008080;"> 41</span>     len = <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 42</span>     memset(a,<span style="color: #800080;">0</span>,<span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(a));
+</span><span style="color: #008080;"> 43</span>     <span style="color: #0000ff;">while</span>(d &gt;<span style="color: #000000;"> MAXN)
+</span><span style="color: #008080;"> 44</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;"> 45</span>         c = d - (d / (MAXN + <span style="color: #800080;">1</span>)) * (MAXN + <span style="color: #800080;">1</span><span style="color: #000000;">); 
+</span><span style="color: #008080;"> 46</span>         d = d / (MAXN + <span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;"> 47</span>         a[len++] =<span style="color: #000000;"> c;
+</span><span style="color: #008080;"> 48</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;"> 49</span>     a[len++] =<span style="color: #000000;"> d;
+</span><span style="color: #008080;"> 50</span> <span style="color: #000000;">}
+</span><span style="color: #008080;"> 51</span> BigNum::BigNum(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">char</span>*s)     <span style="color: #008000;">//</span><span style="color: #008000;">将一个字符串类型的变量转化为大数</span>
+<span style="color: #008080;"> 52</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 53</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> t,k,index,l,i;
+</span><span style="color: #008080;"> 54</span>     memset(a,<span style="color: #800080;">0</span>,<span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(a));
+</span><span style="color: #008080;"> 55</span>     l=<span style="color: #000000;">strlen(s);   
+</span><span style="color: #008080;"> 56</span>     len=l/<span style="color: #000000;">DLEN;
+</span><span style="color: #008080;"> 57</span>     <span style="color: #0000ff;">if</span>(l%<span style="color: #000000;">DLEN)
+</span><span style="color: #008080;"> 58</span>         len++<span style="color: #000000;">;
+</span><span style="color: #008080;"> 59</span>     index=<span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 60</span>     <span style="color: #0000ff;">for</span>(i=l-<span style="color: #800080;">1</span>;i&gt;=<span style="color: #800080;">0</span>;i-=<span style="color: #000000;">DLEN)
+</span><span style="color: #008080;"> 61</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;"> 62</span>         t=<span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 63</span>         k=i-DLEN+<span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 64</span>         <span style="color: #0000ff;">if</span>(k&lt;<span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;"> 65</span>             k=<span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 66</span>         <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j=k;j&lt;=i;j++<span style="color: #000000;">)
+</span><span style="color: #008080;"> 67</span>             t=t*<span style="color: #800080;">10</span>+s[j]-<span style="color: #800000;">'</span><span style="color: #800000;">0</span><span style="color: #800000;">'</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 68</span>         a[index++]=<span style="color: #000000;">t;
+</span><span style="color: #008080;"> 69</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;"> 70</span> <span style="color: #000000;">}
+</span><span style="color: #008080;"> 71</span> BigNum::BigNum(<span style="color: #0000ff;">const</span> BigNum &amp; T) : len(T.len)  <span style="color: #008000;">//</span><span style="color: #008000;">拷贝构造函数</span>
+<span style="color: #008080;"> 72</span> <span style="color: #000000;">{ 
+</span><span style="color: #008080;"> 73</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> i; 
+</span><span style="color: #008080;"> 74</span>     memset(a,<span style="color: #800080;">0</span>,<span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(a)); 
+</span><span style="color: #008080;"> 75</span>     <span style="color: #0000ff;">for</span>(i = <span style="color: #800080;">0</span> ; i &lt; len ; i++<span style="color: #000000;">)
+</span><span style="color: #008080;"> 76</span>         a[i] =<span style="color: #000000;"> T.a[i]; 
+</span><span style="color: #008080;"> 77</span> <span style="color: #000000;">} 
+</span><span style="color: #008080;"> 78</span> BigNum &amp; BigNum::<span style="color: #0000ff;">operator</span>=(<span style="color: #0000ff;">const</span> BigNum &amp; n)   <span style="color: #008000;">//</span><span style="color: #008000;">重载赋值运算符，大数之间进行赋值运算</span>
+<span style="color: #008080;"> 79</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 80</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> i;
+</span><span style="color: #008080;"> 81</span>     len =<span style="color: #000000;"> n.len;
+</span><span style="color: #008080;"> 82</span>     memset(a,<span style="color: #800080;">0</span>,<span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(a)); 
+</span><span style="color: #008080;"> 83</span>     <span style="color: #0000ff;">for</span>(i = <span style="color: #800080;">0</span> ; i &lt; len ; i++<span style="color: #000000;">) 
+</span><span style="color: #008080;"> 84</span>         a[i] =<span style="color: #000000;"> n.a[i]; 
+</span><span style="color: #008080;"> 85</span>     <span style="color: #0000ff;">return</span> *<span style="color: #0000ff;">this</span><span style="color: #000000;">; 
+</span><span style="color: #008080;"> 86</span> <span style="color: #000000;">}
+</span><span style="color: #008080;"> 87</span> istream&amp; <span style="color: #0000ff;">operator</span>&gt;&gt;(istream &amp; <span style="color: #0000ff;">in</span>,  BigNum &amp; b)   <span style="color: #008000;">//</span><span style="color: #008000;">重载输入运算符</span>
+<span style="color: #008080;"> 88</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 89</span>     <span style="color: #0000ff;">char</span> ch[MAXSIZE*<span style="color: #800080;">4</span><span style="color: #000000;">];
+</span><span style="color: #008080;"> 90</span>     <span style="color: #0000ff;">int</span> i = -<span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 91</span>     <span style="color: #0000ff;">in</span>&gt;&gt;<span style="color: #000000;">ch;
+</span><span style="color: #008080;"> 92</span>     <span style="color: #0000ff;">int</span> l=<span style="color: #000000;">strlen(ch);
+</span><span style="color: #008080;"> 93</span>     <span style="color: #0000ff;">int</span> count=<span style="color: #800080;">0</span>,sum=<span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 94</span>     <span style="color: #0000ff;">for</span>(i=l-<span style="color: #800080;">1</span>;i&gt;=<span style="color: #800080;">0</span><span style="color: #000000;">;)
+</span><span style="color: #008080;"> 95</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;"> 96</span>         sum = <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 97</span>         <span style="color: #0000ff;">int</span> t=<span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 98</span>         <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j=<span style="color: #800080;">0</span>;j&lt;<span style="color: #800080;">4</span>&amp;&amp;i&gt;=<span style="color: #800080;">0</span>;j++,i--,t*=<span style="color: #800080;">10</span><span style="color: #000000;">)
+</span><span style="color: #008080;"> 99</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;">100</span>             sum+=(ch[i]-<span style="color: #800000;">'</span><span style="color: #800000;">0</span><span style="color: #800000;">'</span>)*<span style="color: #000000;">t;
+</span><span style="color: #008080;">101</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">102</span>         b.a[count]=<span style="color: #000000;">sum;
+</span><span style="color: #008080;">103</span>         count++<span style="color: #000000;">;
+</span><span style="color: #008080;">104</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">105</span>     b.len =count++<span style="color: #000000;">;
+</span><span style="color: #008080;">106</span>     <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">in</span><span style="color: #000000;">;
+</span><span style="color: #008080;">107</span> 
+<span style="color: #008080;">108</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">109</span> ostream&amp; <span style="color: #0000ff;">operator</span>&lt;&lt;(ostream&amp; <span style="color: #0000ff;">out</span>,  BigNum&amp; b)   <span style="color: #008000;">//</span><span style="color: #008000;">重载输出运算符</span>
+<span style="color: #008080;">110</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">111</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> i;  
+</span><span style="color: #008080;">112</span>     cout &lt;&lt; b.a[b.len - <span style="color: #800080;">1</span><span style="color: #000000;">]; 
+</span><span style="color: #008080;">113</span>     <span style="color: #0000ff;">for</span>(i = b.len - <span style="color: #800080;">2</span> ; i &gt;= <span style="color: #800080;">0</span> ; i--<span style="color: #000000;">)
+</span><span style="color: #008080;">114</span> <span style="color: #000000;">    { 
+</span><span style="color: #008080;">115</span> <span style="color: #000000;">        cout.width(DLEN); 
+</span><span style="color: #008080;">116</span>         cout.fill(<span style="color: #800000;">'</span><span style="color: #800000;">0</span><span style="color: #800000;">'</span><span style="color: #000000;">); 
+</span><span style="color: #008080;">117</span>         cout &lt;&lt;<span style="color: #000000;"> b.a[i]; 
+</span><span style="color: #008080;">118</span> <span style="color: #000000;">    } 
+</span><span style="color: #008080;">119</span>     <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">out</span><span style="color: #000000;">;
+</span><span style="color: #008080;">120</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">121</span> 
+<span style="color: #008080;">122</span> BigNum BigNum::<span style="color: #0000ff;">operator</span>+(<span style="color: #0000ff;">const</span> BigNum &amp; T) <span style="color: #0000ff;">const</span>   <span style="color: #008000;">//</span><span style="color: #008000;">两个大数之间的相加运算</span>
+<span style="color: #008080;">123</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">124</span>     BigNum t(*<span style="color: #0000ff;">this</span><span style="color: #000000;">);
+</span><span style="color: #008080;">125</span>     <span style="color: #0000ff;">int</span> i,big;      <span style="color: #008000;">//</span><span style="color: #008000;">位数   </span>
+<span style="color: #008080;">126</span>     big = T.len &gt; len ?<span style="color: #000000;"> T.len : len; 
+</span><span style="color: #008080;">127</span>     <span style="color: #0000ff;">for</span>(i = <span style="color: #800080;">0</span> ; i &lt; big ; i++<span style="color: #000000;">) 
+</span><span style="color: #008080;">128</span> <span style="color: #000000;">    { 
+</span><span style="color: #008080;">129</span>         t.a[i] +=<span style="color: #000000;">T.a[i]; 
+</span><span style="color: #008080;">130</span>         <span style="color: #0000ff;">if</span>(t.a[i] &gt;<span style="color: #000000;"> MAXN) 
+</span><span style="color: #008080;">131</span> <span style="color: #000000;">        { 
+</span><span style="color: #008080;">132</span>             t.a[i + <span style="color: #800080;">1</span>]++<span style="color: #000000;">; 
+</span><span style="color: #008080;">133</span>             t.a[i] -=MAXN+<span style="color: #800080;">1</span><span style="color: #000000;">; 
+</span><span style="color: #008080;">134</span> <span style="color: #000000;">        } 
+</span><span style="color: #008080;">135</span> <span style="color: #000000;">    } 
+</span><span style="color: #008080;">136</span>     <span style="color: #0000ff;">if</span>(t.a[big] != <span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">137</span>         t.len = big + <span style="color: #800080;">1</span><span style="color: #000000;">; 
+</span><span style="color: #008080;">138</span>     <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">139</span>         t.len =<span style="color: #000000;"> big;   
+</span><span style="color: #008080;">140</span>     <span style="color: #0000ff;">return</span><span style="color: #000000;"> t;
+</span><span style="color: #008080;">141</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">142</span> BigNum BigNum::<span style="color: #0000ff;">operator</span>-(<span style="color: #0000ff;">const</span> BigNum &amp; T) <span style="color: #0000ff;">const</span>   <span style="color: #008000;">//</span><span style="color: #008000;">两个大数之间的相减运算 </span>
+<span style="color: #008080;">143</span> <span style="color: #000000;">{  
+</span><span style="color: #008080;">144</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> i,j,big;
+</span><span style="color: #008080;">145</span>     <span style="color: #0000ff;">bool</span><span style="color: #000000;"> flag;
+</span><span style="color: #008080;">146</span> <span style="color: #000000;">    BigNum t1,t2;
+</span><span style="color: #008080;">147</span>     <span style="color: #0000ff;">if</span>(*<span style="color: #0000ff;">this</span>&gt;<span style="color: #000000;">T)
+</span><span style="color: #008080;">148</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">149</span>         t1=*<span style="color: #0000ff;">this</span><span style="color: #000000;">;
+</span><span style="color: #008080;">150</span>         t2=<span style="color: #000000;">T;
+</span><span style="color: #008080;">151</span>         flag=<span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">152</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">153</span>     <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">154</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">155</span>         t1=<span style="color: #000000;">T;
+</span><span style="color: #008080;">156</span>         t2=*<span style="color: #0000ff;">this</span><span style="color: #000000;">;
+</span><span style="color: #008080;">157</span>         flag=<span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;">158</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">159</span>     big=<span style="color: #000000;">t1.len;
+</span><span style="color: #008080;">160</span>     <span style="color: #0000ff;">for</span>(i = <span style="color: #800080;">0</span> ; i &lt; big ; i++<span style="color: #000000;">)
+</span><span style="color: #008080;">161</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">162</span>         <span style="color: #0000ff;">if</span>(t1.a[i] &lt;<span style="color: #000000;"> t2.a[i])
+</span><span style="color: #008080;">163</span> <span style="color: #000000;">        { 
+</span><span style="color: #008080;">164</span>             j = i + <span style="color: #800080;">1</span><span style="color: #000000;">; 
+</span><span style="color: #008080;">165</span>             <span style="color: #0000ff;">while</span>(t1.a[j] == <span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">166</span>                 j++<span style="color: #000000;">; 
+</span><span style="color: #008080;">167</span>             t1.a[j--]--<span style="color: #000000;">; 
+</span><span style="color: #008080;">168</span>             <span style="color: #0000ff;">while</span>(j &gt;<span style="color: #000000;"> i)
+</span><span style="color: #008080;">169</span>                 t1.a[j--] +=<span style="color: #000000;"> MAXN;
+</span><span style="color: #008080;">170</span>             t1.a[i] += MAXN + <span style="color: #800080;">1</span> -<span style="color: #000000;"> t2.a[i]; 
+</span><span style="color: #008080;">171</span> <span style="color: #000000;">        } 
+</span><span style="color: #008080;">172</span>         <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">173</span>             t1.a[i] -=<span style="color: #000000;"> t2.a[i];
+</span><span style="color: #008080;">174</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">175</span>     t1.len =<span style="color: #000000;"> big;
+</span><span style="color: #008080;">176</span>     <span style="color: #0000ff;">while</span>(t1.a[len - <span style="color: #800080;">1</span>] == <span style="color: #800080;">0</span> &amp;&amp; t1.len &gt; <span style="color: #800080;">1</span><span style="color: #000000;">)
+</span><span style="color: #008080;">177</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">178</span>         t1.len--<span style="color: #000000;">; 
+</span><span style="color: #008080;">179</span>         big--<span style="color: #000000;">;
+</span><span style="color: #008080;">180</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">181</span>     <span style="color: #0000ff;">if</span><span style="color: #000000;">(flag)
+</span><span style="color: #008080;">182</span>         t1.a[big-<span style="color: #800080;">1</span>]=<span style="color: #800080;">0</span>-t1.a[big-<span style="color: #800080;">1</span><span style="color: #000000;">];
+</span><span style="color: #008080;">183</span>     <span style="color: #0000ff;">return</span><span style="color: #000000;"> t1; 
+</span><span style="color: #008080;">184</span> <span style="color: #000000;">} 
+</span><span style="color: #008080;">185</span> 
+<span style="color: #008080;">186</span> BigNum BigNum::<span style="color: #0000ff;">operator</span>*(<span style="color: #0000ff;">const</span> BigNum &amp; T) <span style="color: #0000ff;">const</span>   <span style="color: #008000;">//</span><span style="color: #008000;">两个大数之间的相乘运算 </span>
+<span style="color: #008080;">187</span> <span style="color: #000000;">{ 
+</span><span style="color: #008080;">188</span> <span style="color: #000000;">    BigNum ret; 
+</span><span style="color: #008080;">189</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> i,j,up; 
+</span><span style="color: #008080;">190</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> temp,temp1;   
+</span><span style="color: #008080;">191</span>     <span style="color: #0000ff;">for</span>(i = <span style="color: #800080;">0</span> ; i &lt; len ; i++<span style="color: #000000;">)
+</span><span style="color: #008080;">192</span> <span style="color: #000000;">    { 
+</span><span style="color: #008080;">193</span>         up = <span style="color: #800080;">0</span><span style="color: #000000;">; 
+</span><span style="color: #008080;">194</span>         <span style="color: #0000ff;">for</span>(j = <span style="color: #800080;">0</span> ; j &lt; T.len ; j++<span style="color: #000000;">)
+</span><span style="color: #008080;">195</span> <span style="color: #000000;">        { 
+</span><span style="color: #008080;">196</span>             temp = a[i] * T.a[j] + ret.a[i + j] +<span style="color: #000000;"> up; 
+</span><span style="color: #008080;">197</span>             <span style="color: #0000ff;">if</span>(temp &gt;<span style="color: #000000;"> MAXN)
+</span><span style="color: #008080;">198</span> <span style="color: #000000;">            { 
+</span><span style="color: #008080;">199</span>                 temp1 = temp - temp / (MAXN + <span style="color: #800080;">1</span>) * (MAXN + <span style="color: #800080;">1</span><span style="color: #000000;">); 
+</span><span style="color: #008080;">200</span>                 up = temp / (MAXN + <span style="color: #800080;">1</span><span style="color: #000000;">); 
+</span><span style="color: #008080;">201</span>                 ret.a[i + j] =<span style="color: #000000;"> temp1; 
+</span><span style="color: #008080;">202</span> <span style="color: #000000;">            } 
+</span><span style="color: #008080;">203</span>             <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">204</span> <span style="color: #000000;">            { 
+</span><span style="color: #008080;">205</span>                 up = <span style="color: #800080;">0</span><span style="color: #000000;">; 
+</span><span style="color: #008080;">206</span>                 ret.a[i + j] =<span style="color: #000000;"> temp; 
+</span><span style="color: #008080;">207</span> <span style="color: #000000;">            } 
+</span><span style="color: #008080;">208</span> <span style="color: #000000;">        } 
+</span><span style="color: #008080;">209</span>         <span style="color: #0000ff;">if</span>(up != <span style="color: #800080;">0</span><span style="color: #000000;">) 
+</span><span style="color: #008080;">210</span>             ret.a[i + j] =<span style="color: #000000;"> up; 
+</span><span style="color: #008080;">211</span> <span style="color: #000000;">    } 
+</span><span style="color: #008080;">212</span>     ret.len = i +<span style="color: #000000;"> j; 
+</span><span style="color: #008080;">213</span>     <span style="color: #0000ff;">while</span>(ret.a[ret.len - <span style="color: #800080;">1</span>] == <span style="color: #800080;">0</span> &amp;&amp; ret.len &gt; <span style="color: #800080;">1</span><span style="color: #000000;">)
+</span><span style="color: #008080;">214</span>         ret.len--<span style="color: #000000;">; 
+</span><span style="color: #008080;">215</span>     <span style="color: #0000ff;">return</span><span style="color: #000000;"> ret; 
+</span><span style="color: #008080;">216</span> <span style="color: #000000;">} 
+</span><span style="color: #008080;">217</span> BigNum BigNum::<span style="color: #0000ff;">operator</span>/(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> &amp; b) <span style="color: #0000ff;">const</span>   <span style="color: #008000;">//</span><span style="color: #008000;">大数对一个整数进行相除运算</span>
+<span style="color: #008080;">218</span> <span style="color: #000000;">{ 
+</span><span style="color: #008080;">219</span> <span style="color: #000000;">    BigNum ret; 
+</span><span style="color: #008080;">220</span>     <span style="color: #0000ff;">int</span> i,down = <span style="color: #800080;">0</span><span style="color: #000000;">;   
+</span><span style="color: #008080;">221</span>     <span style="color: #0000ff;">for</span>(i = len - <span style="color: #800080;">1</span> ; i &gt;= <span style="color: #800080;">0</span> ; i--<span style="color: #000000;">)
+</span><span style="color: #008080;">222</span> <span style="color: #000000;">    { 
+</span><span style="color: #008080;">223</span>         ret.a[i] = (a[i] + down * (MAXN + <span style="color: #800080;">1</span>)) /<span style="color: #000000;"> b; 
+</span><span style="color: #008080;">224</span>         down = a[i] + down * (MAXN + <span style="color: #800080;">1</span>) - ret.a[i] *<span style="color: #000000;"> b; 
+</span><span style="color: #008080;">225</span> <span style="color: #000000;">    } 
+</span><span style="color: #008080;">226</span>     ret.len =<span style="color: #000000;"> len; 
+</span><span style="color: #008080;">227</span>     <span style="color: #0000ff;">while</span>(ret.a[ret.len - <span style="color: #800080;">1</span>] == <span style="color: #800080;">0</span> &amp;&amp; ret.len &gt; <span style="color: #800080;">1</span><span style="color: #000000;">)
+</span><span style="color: #008080;">228</span>         ret.len--<span style="color: #000000;">; 
+</span><span style="color: #008080;">229</span>     <span style="color: #0000ff;">return</span><span style="color: #000000;"> ret; 
+</span><span style="color: #008080;">230</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">231</span> <span style="color: #0000ff;">int</span> BigNum::<span style="color: #0000ff;">operator</span> %(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> &amp; b) <span style="color: #0000ff;">const</span>    <span style="color: #008000;">//</span><span style="color: #008000;">大数对一个int类型的变量进行取模运算    </span>
+<span style="color: #008080;">232</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">233</span>     <span style="color: #0000ff;">int</span> i,d=<span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">234</span>     <span style="color: #0000ff;">for</span> (i = len-<span style="color: #800080;">1</span>; i&gt;=<span style="color: #800080;">0</span>; i--<span style="color: #000000;">)
+</span><span style="color: #008080;">235</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">236</span>         d = ((d * (MAXN+<span style="color: #800080;">1</span>))% b + a[i])%<span style="color: #000000;"> b;  
+</span><span style="color: #008080;">237</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">238</span>     <span style="color: #0000ff;">return</span><span style="color: #000000;"> d;
+</span><span style="color: #008080;">239</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">240</span> BigNum BigNum::<span style="color: #0000ff;">operator</span>^(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> &amp; n) <span style="color: #0000ff;">const</span>    <span style="color: #008000;">//</span><span style="color: #008000;">大数的n次方运算</span>
+<span style="color: #008080;">241</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">242</span>     BigNum t,ret(<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">243</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> i;
+</span><span style="color: #008080;">244</span>     <span style="color: #0000ff;">if</span>(n&lt;<span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">245</span>         exit(-<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">246</span>     <span style="color: #0000ff;">if</span>(n==<span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">247</span>         <span style="color: #0000ff;">return</span> <span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;">248</span>     <span style="color: #0000ff;">if</span>(n==<span style="color: #800080;">1</span><span style="color: #000000;">)
+</span><span style="color: #008080;">249</span>         <span style="color: #0000ff;">return</span> *<span style="color: #0000ff;">this</span><span style="color: #000000;">;
+</span><span style="color: #008080;">250</span>     <span style="color: #0000ff;">int</span> m=<span style="color: #000000;">n;
+</span><span style="color: #008080;">251</span>     <span style="color: #0000ff;">while</span>(m&gt;<span style="color: #800080;">1</span><span style="color: #000000;">)
+</span><span style="color: #008080;">252</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">253</span>         t=*<span style="color: #0000ff;">this</span><span style="color: #000000;">;
+</span><span style="color: #008080;">254</span>         <span style="color: #0000ff;">for</span>( i=<span style="color: #800080;">1</span>;i&lt;&lt;<span style="color: #800080;">1</span>&lt;=m;i&lt;&lt;=<span style="color: #800080;">1</span><span style="color: #000000;">)
+</span><span style="color: #008080;">255</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;">256</span>             t=t*<span style="color: #000000;">t;
+</span><span style="color: #008080;">257</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">258</span>         m-=<span style="color: #000000;">i;
+</span><span style="color: #008080;">259</span>         ret=ret*<span style="color: #000000;">t;
+</span><span style="color: #008080;">260</span>         <span style="color: #0000ff;">if</span>(m==<span style="color: #800080;">1</span><span style="color: #000000;">)
+</span><span style="color: #008080;">261</span>             ret=ret*(*<span style="color: #0000ff;">this</span><span style="color: #000000;">);
+</span><span style="color: #008080;">262</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">263</span>     <span style="color: #0000ff;">return</span><span style="color: #000000;"> ret;
+</span><span style="color: #008080;">264</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">265</span> <span style="color: #0000ff;">bool</span> BigNum::<span style="color: #0000ff;">operator</span>&gt;(<span style="color: #0000ff;">const</span> BigNum &amp; T) <span style="color: #0000ff;">const</span>   <span style="color: #008000;">//</span><span style="color: #008000;">大数和另一个大数的大小比较</span>
+<span style="color: #008080;">266</span> <span style="color: #000000;">{ 
+</span><span style="color: #008080;">267</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> ln; 
+</span><span style="color: #008080;">268</span>     <span style="color: #0000ff;">if</span>(len &gt;<span style="color: #000000;"> T.len)
+</span><span style="color: #008080;">269</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">; 
+</span><span style="color: #008080;">270</span>     <span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span>(len ==<span style="color: #000000;"> T.len)
+</span><span style="color: #008080;">271</span> <span style="color: #000000;">    { 
+</span><span style="color: #008080;">272</span>         ln = len - <span style="color: #800080;">1</span><span style="color: #000000;">; 
+</span><span style="color: #008080;">273</span>         <span style="color: #0000ff;">while</span>(a[ln] == T.a[ln] &amp;&amp; ln &gt;= <span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">274</span>             ln--<span style="color: #000000;">; 
+</span><span style="color: #008080;">275</span>         <span style="color: #0000ff;">if</span>(ln &gt;= <span style="color: #800080;">0</span> &amp;&amp; a[ln] &gt;<span style="color: #000000;"> T.a[ln])
+</span><span style="color: #008080;">276</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">; 
+</span><span style="color: #008080;">277</span>         <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">278</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">; 
+</span><span style="color: #008080;">279</span> <span style="color: #000000;">    } 
+</span><span style="color: #008080;">280</span>     <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">281</span>         <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">; 
+</span><span style="color: #008080;">282</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">283</span> <span style="color: #0000ff;">bool</span> BigNum::<span style="color: #0000ff;">operator</span> &gt;(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> &amp; t) <span style="color: #0000ff;">const</span>    <span style="color: #008000;">//</span><span style="color: #008000;">大数和一个int类型的变量的大小比较</span>
+<span style="color: #008080;">284</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">285</span> <span style="color: #000000;">    BigNum b(t);
+</span><span style="color: #008080;">286</span>     <span style="color: #0000ff;">return</span> *<span style="color: #0000ff;">this</span>&gt;<span style="color: #000000;">b;
+</span><span style="color: #008080;">287</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">288</span> 
+<span style="color: #008080;">289</span> <span style="color: #0000ff;">void</span> BigNum::print()    <span style="color: #008000;">//</span><span style="color: #008000;">输出大数</span>
+<span style="color: #008080;">290</span> <span style="color: #000000;">{ 
+</span><span style="color: #008080;">291</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> i;   
+</span><span style="color: #008080;">292</span>     cout &lt;&lt; a[len - <span style="color: #800080;">1</span><span style="color: #000000;">]; 
+</span><span style="color: #008080;">293</span>     <span style="color: #0000ff;">for</span>(i = len - <span style="color: #800080;">2</span> ; i &gt;= <span style="color: #800080;">0</span> ; i--<span style="color: #000000;">)
+</span><span style="color: #008080;">294</span> <span style="color: #000000;">    { 
+</span><span style="color: #008080;">295</span> <span style="color: #000000;">        cout.width(DLEN); 
+</span><span style="color: #008080;">296</span>         cout.fill(<span style="color: #800000;">'</span><span style="color: #800000;">0</span><span style="color: #800000;">'</span><span style="color: #000000;">); 
+</span><span style="color: #008080;">297</span>         cout &lt;&lt;<span style="color: #000000;"> a[i]; 
+</span><span style="color: #008080;">298</span> <span style="color: #000000;">    } 
+</span><span style="color: #008080;">299</span>     cout &lt;&lt;<span style="color: #000000;"> endl;
+</span><span style="color: #008080;">300</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">301</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;">302</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">303</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> i,n;
+</span><span style="color: #008080;">304</span>     BigNum x[<span style="color: #800080;">101</span>];      <span style="color: #008000;">//</span><span style="color: #008000;">定义大数的对象数组</span>
+<span style="color: #008080;">305</span>     x[<span style="color: #800080;">0</span>]=<span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;">306</span>     <span style="color: #0000ff;">for</span>(i=<span style="color: #800080;">1</span>;i&lt;<span style="color: #800080;">101</span>;i++<span style="color: #000000;">)
+</span><span style="color: #008080;">307</span>         x[i]=x[i-<span style="color: #800080;">1</span>]*(<span style="color: #800080;">4</span>*i-<span style="color: #800080;">2</span>)/(i+<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;">308</span>     <span style="color: #0000ff;">while</span>(scanf(<span style="color: #800000;">"</span><span style="color: #800000;">%d</span><span style="color: #800000;">"</span>,&amp;n)==<span style="color: #800080;">1</span> &amp;&amp; n!=-<span style="color: #800080;">1</span><span style="color: #000000;">)
+</span><span style="color: #008080;">309</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">310</span> <span style="color: #000000;">        x[n].print();
+</span><span style="color: #008080;">311</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">312</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./c++高精度模板 - PegasusWang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/PegasusWang/category/447051.html">c++</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/PegasusWang/tag/c%2B%2B%E9%AB%98%E7%B2%BE%E5%BA%A6%E6%A8%A1%E6%9D%BF/">c++高精度模板</a></div>
+<div id="blog_post_info"><div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2977610,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/PegasusWang" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./c++高精度模板 - PegasusWang - 博客园_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/PegasusWang/" target="_blank"><img src="./c++高精度模板 - PegasusWang - 博客园_files/20130520210452.png" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/PegasusWang/">PegasusWang</a><br>
+<a href="http://home.cnblogs.com/u/PegasusWang/followees">关注 - 28</a><br>
+<a href="http://home.cnblogs.com/u/PegasusWang/followers">粉丝 - 6</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(2977610,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+	<div class="buryit" onclick="votePost(2977610,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/PegasusWang/archive/2013/03/23/2977597.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/PegasusWang/archive/2013/03/23/2977597.html" title="发布于2013-03-23 19:52">ural 1306. Sequence Median(优先级队列 priority_queue用法）</a><br><a href="http://www.cnblogs.com/PegasusWang/archive/2013/03/23/2977890.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/PegasusWang/archive/2013/03/23/2977890.html" title="发布于2013-03-23 23:44">浅谈全排列与组合的生成</a><br></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2013-03-23 20:05</span> <a href="http://www.cnblogs.com/PegasusWang/">PegasusWang</a> 阅读(<span id="post_view_count">1420</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=2977610" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/PegasusWang/archive/2013/03/23/2977610.html#" onclick="AddToWz(2977610);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=140102,cb_entryId=2977610,cb_blogApp=currentBlogApp,cb_blogUserGuid='d61933db-17de-e111-aa3f-842b2b196315',cb_entryCreatedDate='2013/3/23 20:05:00';loadViewCount(cb_entryId);</script>
+
+<a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="http://www.cnblogs.com/PegasusWang/archive/2013/03/23/2977610.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/PegasusWang/archive/2013/03/23/2977610.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    var enableGoogleAd = canShowAdsense(); var googletag = googletag || {}; googletag.cmd = googletag.cmd || [];
+    fixPostBodyFormat();
+</script>
+<div id="ad_under_post_holder">
+<script type="text/javascript">
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function () {
+        if (enableGoogleAd) {
+            var gads = document.createElement('script');
+            gads.async = true;
+            gads.type = 'text/javascript';
+            var useSSL = 'https:' == document.location.protocol;
+            gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+            var node = document.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(gads, node);
+        }
+    })();
+</script>
+<script type="text/javascript">
+    try {
+        if (enableGoogleAd) {
+            googletag.cmd.push(function () {
+                googletag.defineSlot('/1090369/cnblogs_blogpost_C1_sitehome', [300, 250], 'div-gpt-ad-1346480159711-0').addService(googletag.pubads());
+                googletag.defineSlot('/1090369/cnblogs_blogpost_C2', [468, 60], 'div-gpt-ad-1410860226396-0').addService(googletag.pubads());
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+            });
+        };
+    } catch (e) { }
+</script>
+<div id="google_ad_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1346480159711-0" style="width:300px; height:250px;">
+    <script type="text/javascript">
+        try {
+            if (enableGoogleAd) {
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1346480159711-0'); });            
+            } else {
+                $('#div-gpt-ad-1346480159711-0').hide();
+            }
+    } catch (e) { }
+    </script>
+    </div>
+</div>
+</div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/521196/" target="_blank">微信公告称将重点整顿微信公众平台谣言</a><br> ·  <a href="http://news.cnblogs.com/n/521195/" target="_blank">我曾得到的最佳编程建议</a><br> ·  <a href="http://news.cnblogs.com/n/521194/" target="_blank">谷歌将在移动搜索结果页面添加“购买”按钮</a><br> ·  <a href="http://news.cnblogs.com/n/521193/" target="_blank">四个爆点和四个槽点，教你看清Lily无人机是否真的牛逼哄哄</a><br> ·  <a href="http://news.cnblogs.com/n/521191/" target="_blank">JavaScript诞生二十年</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block">
+<div id="div-gpt-ad-1410860226396-0" style="width:468px; height:60px;">
+<script type="text/javascript">
+try {
+    if (enableGoogleAd) {
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-1410860226396-0'); });
+    } else {
+        $('#div-gpt-ad-1346480159711-0').hide();
+    }
+} catch (e) { }
+</script>
+</div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/521008/" target="_blank">元数据驱动设计 —— 设计一套用于API数据检索的灵活引擎</a><br> ·  <a href="http://kb.cnblogs.com/page/147517/" target="_blank">持续部署，并不简单！</a><br> ·  <a href="http://kb.cnblogs.com/page/520961/" target="_blank">如果你做的事情毫不费力，就是在浪费时间</a><br> ·  <a href="http://kb.cnblogs.com/page/520922/" target="_blank">解析微服务架构（一）单块架构系统以及其面临的挑战</a><br> ·  <a href="http://kb.cnblogs.com/page/520746/" target="_blank">说说领域驱动设计和贫血、失血、充血模型</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 200);
+});
+</script><script async="" type="text/javascript" src="./c++高精度模板 - PegasusWang - 博客园_files/check_359604.js"></script><iframe src="./c++高精度模板 - PegasusWang - 博客园_files/container.htm" style="visibility: hidden; display: none;"></iframe>
+</div>
+
+	
+<!--done-->
+<div class="footer">
+	
+	Copyright ©2015 PegasusWang Powered by: <a href="http://www.cnblogs.com/" class="footerlink">博客园</a> 模板提供：<a href="http://blog.hjenglish.com/" class="footerlink">沪江博客</a><br>
+</div>
+</div>
+
+
+
+
+
+</body></html>

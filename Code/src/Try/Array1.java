@@ -1,0 +1,13 @@
+class  Array1
+{
+	public static void main(String[] args) 
+	{
+		int[] Array =new int[]{4,5,-1,93,45};
+		//Arrays.sort(Array);
+		for (int i=0;i<Array.length ;i++ )
+		{
+			System.out.println(Array[i]);
+		}
+		int[][] a=new int[][]{{2,6},{3,5},{4,6}};
+	}
+}
